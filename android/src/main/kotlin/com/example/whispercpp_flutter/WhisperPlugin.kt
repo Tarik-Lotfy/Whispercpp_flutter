@@ -1,5 +1,6 @@
 package com.example.whispercpp_flutter
 
+import android.content.res.AssetFileDescriptor
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -8,6 +9,7 @@ import io.flutter.plugin.common.MethodChannel.Result
 import java.io.BufferedInputStream
 import java.io.File
 import java.io.FileOutputStream
+import java.io.IOException
 import java.util.Locale
 
 class WhisperPlugin : FlutterPlugin, MethodCallHandler {
@@ -37,7 +39,19 @@ class WhisperPlugin : FlutterPlugin, MethodCallHandler {
 
     override fun onMethodCall(call: MethodCall, result: Result) {
         when (call.method) {
-            "getBundledTinyModelPath" -> result.success(getBundledTinyModelPath())
+            "getBundledTinyModelPath" -> {
+                try {
+                    result.success(getBundledTinyModelPath())
+                } catch (e: IOException) {
+                    result.error("bundled_model_unavailable", e.message, null)
+                } catch (e: Throwable) {
+                    result.error(
+                        "bundled_model_unavailable",
+                        e.message ?: "Failed to prepare the bundled tiny model.",
+                        null,
+                    )
+                }
+            }
             "transcribe" -> handleTranscribe(call, result)
             else -> result.notImplemented()
         }
@@ -124,25 +138,91 @@ class WhisperPlugin : FlutterPlugin, MethodCallHandler {
         }
     }
 
+    /**
+     * Installs the bundled model into [filesDir] with an atomic final rename. A [markerFile] records
+     * the last successful size so a truncated or interrupted copy cannot be mistaken for a valid model.
+     */
+    @Throws(IOException::class)
     private fun getBundledTinyModelPath(): String {
         val context = flutterPluginBinding.applicationContext
         val modelsDir = File(context.filesDir, "whispercpp_flutter/models")
-        if (!modelsDir.exists()) {
-            modelsDir.mkdirs()
+        if (!modelsDir.exists() && !modelsDir.mkdirs()) {
+            throw IOException("Failed to create models directory.")
         }
-
         val outputFile = File(modelsDir, "ggml-tiny.bin")
-        if (outputFile.exists() && outputFile.length() > 0L) {
-            return outputFile.absolutePath
-        }
+        val markerFile = File(modelsDir, "ggml-tiny.bin.length")
 
-        BufferedInputStream(context.assets.open(bundledTinyAssetPath)).use { input ->
-            FileOutputStream(outputFile).use { output ->
-                input.copyTo(output)
+        val expectedLength = context.assets.openFd(bundledTinyAssetPath).use { fd: AssetFileDescriptor ->
+            val len = fd.length
+            if (len == AssetFileDescriptor.UNKNOWN_LENGTH) {
+                -1L
+            } else {
+                len
             }
         }
 
+        if (isBundledModelUsable(outputFile, markerFile, expectedLength)) {
+            return outputFile.absolutePath
+        }
+
+        if (outputFile.exists() && !outputFile.delete()) {
+            throw IOException("Failed to remove an incomplete or stale model file. Clear app data and retry.")
+        }
+        if (markerFile.exists() && !markerFile.delete()) {
+            throw IOException("Failed to remove stale model metadata. Clear app data and retry.")
+        }
+
+        val temp = File.createTempFile("ggml-tiny", ".part", modelsDir)
+        try {
+            BufferedInputStream(context.assets.open(bundledTinyAssetPath)).use { input ->
+                FileOutputStream(temp).use { output ->
+                    val written = input.copyTo(output)
+                    if (expectedLength > 0L && written != expectedLength) {
+                        throw IOException(
+                            "Bundled model size mismatch (expected $expectedLength bytes, copied $written).",
+                        )
+                    }
+                    if (output.fd.valid()) {
+                        output.fd.sync()
+                    }
+                }
+            }
+            if (expectedLength > 0L && temp.length() != expectedLength) {
+                throw IOException("Bundled model file is incomplete on disk after extraction.")
+            }
+            if (!temp.renameTo(outputFile)) {
+                throw IOException("Failed to finalize the bundled model file after extraction.")
+            }
+            // Marker written only after the model file is fully installed, so a partial copy cannot look valid.
+            markerFile.writeText(outputFile.length().toString())
+        } finally {
+            if (temp.exists() && !temp.delete()) {
+                // Best-effort: leave no stray temp; ignore failure
+            }
+        }
         return outputFile.absolutePath
+    }
+
+    private fun isBundledModelUsable(
+        output: File,
+        marker: File,
+        expectedFromAsset: Long,
+    ): Boolean {
+        if (!output.isFile || !marker.isFile) {
+            return false
+        }
+        val sizeFromMarker = try {
+            marker.readText().trim().toLong()
+        } catch (_: NumberFormatException) {
+            return false
+        }
+        if (sizeFromMarker != output.length()) {
+            return false
+        }
+        if (expectedFromAsset > 0L) {
+            return output.length() == expectedFromAsset
+        }
+        return true
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
