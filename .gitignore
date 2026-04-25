@@ -5,3 +5,11 @@
 .pub/
 build/
 
+# Local C/C++ extension config (set ANDROID_NDK_HOME and copy c_cpp_properties.json.example)
+.vscode/c_cpp_properties.json
+
+# Android Gradle build cache
+android/.gradle/
+
+# Ad-hoc compiler outputs
+*.o
