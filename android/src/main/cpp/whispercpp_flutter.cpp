@@ -11,7 +11,11 @@ std::string JStringToStdString(JNIEnv* env, jstring value) {
   }
 
   const char* chars = env->GetStringUTFChars(value, nullptr);
-  std::string result(chars == nullptr ? "" : chars);
+  if (chars == nullptr) {
+    return "";
+  }
+
+  std::string result(chars);
   env->ReleaseStringUTFChars(value, chars);
   return result;
 }

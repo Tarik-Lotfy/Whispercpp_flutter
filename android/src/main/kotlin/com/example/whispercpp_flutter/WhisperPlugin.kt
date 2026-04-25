@@ -178,13 +178,17 @@ class WhisperPlugin : FlutterPlugin, MethodCallHandler {
         val outputFile = File(modelsDir, "ggml-tiny.bin")
         val markerFile = File(modelsDir, "ggml-tiny.bin.length")
 
-        val expectedLength = context.assets.openFd(bundledTinyAssetPath).use { fd: AssetFileDescriptor ->
-            val len = fd.length
-            if (len == AssetFileDescriptor.UNKNOWN_LENGTH) {
-                -1L
-            } else {
-                len
+        val expectedLength = try {
+            context.assets.openFd(bundledTinyAssetPath).use { fd: AssetFileDescriptor ->
+                val len = fd.length
+                if (len == AssetFileDescriptor.UNKNOWN_LENGTH) {
+                    -1L
+                } else {
+                    len
+                }
             }
+        } catch (_: IOException) {
+            -1L
         }
 
         if (isBundledModelUsable(outputFile, markerFile, expectedLength)) {
