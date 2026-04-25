@@ -29,7 +29,7 @@ import 'package:whispercpp_flutter/whispercpp_flutter.dart';
 final controller = WhispercppFlutter();
 final text = await controller.transcribe(
   audioPath: '/storage/emulated/0/recordings/sample.wav',
-  language: 'ar',
+  language: 'auto',
 );
 
 final arabicText = await controller.transcribe(
