@@ -13,3 +13,6 @@ android/.gradle/
 
 # Ad-hoc compiler outputs
 *.o
+
+# Local / agent notes (not for the public repo)
+local/
