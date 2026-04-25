@@ -1,0 +1,86 @@
+{
+  "configurations": [
+    {
+      "name": "Win32",
+      "includePath": [
+        "${env:ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19/include",
+        "${env:ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include",
+        "${env:ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1"
+      ],
+      "defines": [
+        "ANDROID=1",
+        "__ANDROID__=1"
+      ],
+      "cStandard": "c17",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "windows-clang-x64",
+      "compilerPath": "${env:ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe",
+      "compilerArgs": [
+        "--target=aarch64-none-linux-android21"
+      ],
+      "browse": {
+        "path": [
+          "${workspaceFolder}/android/src/main/cpp",
+          "${env:ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include",
+          "${env:ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1"
+        ],
+        "limitSymbolsToIncludedHeaders": true
+      }
+    },
+    {
+      "name": "Mac",
+      "includePath": [
+        "${env:ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/darwin-x86_64/lib/clang/19/include",
+        "${env:ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include",
+        "${env:ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1"
+      ],
+      "defines": [
+        "ANDROID=1",
+        "__ANDROID__=1"
+      ],
+      "cStandard": "c17",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "macos-clang-arm64",
+      "compilerPath": "${env:ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++",
+      "compilerArgs": [
+        "--target=aarch64-none-linux-android21"
+      ],
+      "browse": {
+        "path": [
+          "${workspaceFolder}/android/src/main/cpp",
+          "${env:ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include",
+          "${env:ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1"
+        ],
+        "limitSymbolsToIncludedHeaders": true
+      }
+    },
+    {
+      "name": "Linux",
+      "includePath": [
+        "${env:ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/lib/clang/19/include",
+        "${env:ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
+        "${env:ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/c++/v1"
+      ],
+      "defines": [
+        "ANDROID=1",
+        "__ANDROID__=1"
+      ],
+      "cStandard": "c17",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "linux-clang-x64",
+      "compilerPath": "${env:ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++",
+      "compilerArgs": [
+        "--target=aarch64-none-linux-android21"
+      ],
+      "browse": {
+        "path": [
+          "${workspaceFolder}/android/src/main/cpp",
+          "${env:ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
+          "${env:ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/c++/v1"
+        ],
+        "limitSymbolsToIncludedHeaders": true
+      }
+    }
+  ],
+  "version": 4
+}
