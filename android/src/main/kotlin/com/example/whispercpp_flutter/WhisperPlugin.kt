@@ -11,6 +11,12 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.util.Locale
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class WhisperPlugin : FlutterPlugin, MethodCallHandler {
     private val bundledTinyAssetPath = "models/ggml-tiny.bin"
@@ -24,6 +30,9 @@ class WhisperPlugin : FlutterPlugin, MethodCallHandler {
 
     private lateinit var flutterPluginBinding: FlutterPlugin.FlutterPluginBinding
     private lateinit var channel: MethodChannel
+
+    private val transcribeJob = SupervisorJob()
+    private val pluginScope = CoroutineScope(transcribeJob + Dispatchers.Main.immediate)
 
     private external fun transcribeNative(
         modelPath: String,
@@ -40,16 +49,21 @@ class WhisperPlugin : FlutterPlugin, MethodCallHandler {
     override fun onMethodCall(call: MethodCall, result: Result) {
         when (call.method) {
             "getBundledTinyModelPath" -> {
-                try {
-                    result.success(getBundledTinyModelPath())
-                } catch (e: IOException) {
-                    result.error("bundled_model_unavailable", e.message, null)
-                } catch (e: Throwable) {
-                    result.error(
-                        "bundled_model_unavailable",
-                        e.message ?: "Failed to prepare the bundled tiny model.",
-                        null,
-                    )
+                pluginScope.launch {
+                    try {
+                        val path = getBundledTinyModelPath()
+                        result.success(path)
+                    } catch (e: CancellationException) {
+                        throw e
+                    } catch (e: IOException) {
+                        result.error("bundled_model_unavailable", e.message, null)
+                    } catch (e: Throwable) {
+                        result.error(
+                            "bundled_model_unavailable",
+                            e.message ?: "Failed to prepare the bundled tiny model.",
+                            null,
+                        )
+                    }
                 }
             }
             "transcribe" -> handleTranscribe(call, result)
@@ -61,54 +75,65 @@ class WhisperPlugin : FlutterPlugin, MethodCallHandler {
         val requestedModelPath = call.argument<String>("modelPath")
         val audioPath = call.argument<String>("audioPath")
         val language = normalizeLanguage(call.argument<String>("language"))
-        val modelPath = try {
-            resolveModelPath(requestedModelPath)
-        } catch (error: Throwable) {
-            result.error(
-                "bundled_model_unavailable",
-                error.message ?: "Failed to prepare the bundled tiny model.",
-                null,
-            )
-            return
-        }
 
         if (audioPath.isNullOrBlank()) {
             result.error("invalid_args", "audioPath is required.", null)
             return
         }
 
-        if (!isLanguageCompatibleWithModel(language, modelPath)) {
-            result.error(
-                "unsupported_model",
-                "Non-English transcription requires a multilingual Whisper model. " +
-                    "Use a model like ggml-tiny.bin instead of an English-only .en model.",
-                null,
-            )
-            return
-        }
+        // Resolve bundled model and run inference off the main thread; complete Result on the main thread.
+        pluginScope.launch {
+            val modelPath = try {
+                resolveModelPath(requestedModelPath)
+            } catch (e: CancellationException) {
+                throw e
+            } catch (error: Throwable) {
+                result.error(
+                    "bundled_model_unavailable",
+                    error.message ?: "Failed to prepare the bundled tiny model.",
+                    null,
+                )
+                return@launch
+            }
 
-        val modelFile = File(modelPath)
-        if (!modelFile.exists() || !modelFile.isFile) {
-            result.error("model_not_found", "Model file was not found at: $modelPath", null)
-            return
-        }
+            if (!isLanguageCompatibleWithModel(language, modelPath)) {
+                result.error(
+                    "unsupported_model",
+                    "Non-English transcription requires a multilingual Whisper model. " +
+                        "Use a model like ggml-tiny.bin instead of an English-only .en model.",
+                    null,
+                )
+                return@launch
+            }
 
-        val audioFile = File(audioPath)
-        if (!audioFile.exists() || !audioFile.isFile) {
-            result.error("audio_not_found", "Audio file was not found at: $audioPath", null)
-            return
-        }
+            val modelFile = File(modelPath)
+            if (!modelFile.exists() || !modelFile.isFile) {
+                result.error("model_not_found", "Model file was not found at: $modelPath", null)
+                return@launch
+            }
 
-        try {
-            result.success(transcribeNative(modelPath, audioPath, language))
-        } catch (error: IllegalArgumentException) {
-            result.error("transcription_failed", error.message, null)
-        } catch (error: Throwable) {
-            result.error(
-                "native_error",
-                error.message ?: "Unknown native transcription error.",
-                null,
-            )
+            val audioFile = File(audioPath)
+            if (!audioFile.exists() || !audioFile.isFile) {
+                result.error("audio_not_found", "Audio file was not found at: $audioPath", null)
+                return@launch
+            }
+
+            try {
+                val text = withContext(Dispatchers.Default) {
+                    transcribeNative(modelPath, audioPath, language)
+                }
+                result.success(text)
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: IllegalArgumentException) {
+                result.error("transcription_failed", e.message, null)
+            } catch (e: Throwable) {
+                result.error(
+                    "native_error",
+                    e.message ?: "Unknown native transcription error.",
+                    null,
+                )
+            }
         }
     }
 
@@ -130,7 +155,7 @@ class WhisperPlugin : FlutterPlugin, MethodCallHandler {
         return !englishOnlyModelPattern.containsMatchIn(modelPath.lowercase(Locale.ROOT))
     }
 
-    private fun resolveModelPath(requestedModelPath: String?): String {
+    private suspend fun resolveModelPath(requestedModelPath: String?): String {
         return if (requestedModelPath.isNullOrBlank()) {
             getBundledTinyModelPath()
         } else {
@@ -141,9 +166,10 @@ class WhisperPlugin : FlutterPlugin, MethodCallHandler {
     /**
      * Installs the bundled model into [filesDir] with an atomic final rename. A [markerFile] records
      * the last successful size so a truncated or interrupted copy cannot be mistaken for a valid model.
+     * Asset unpacking and file I/O run on [Dispatchers.IO].
      */
     @Throws(IOException::class)
-    private fun getBundledTinyModelPath(): String {
+    private suspend fun getBundledTinyModelPath(): String = withContext(Dispatchers.IO) {
         val context = flutterPluginBinding.applicationContext
         val modelsDir = File(context.filesDir, "whispercpp_flutter/models")
         if (!modelsDir.exists() && !modelsDir.mkdirs()) {
@@ -162,7 +188,7 @@ class WhisperPlugin : FlutterPlugin, MethodCallHandler {
         }
 
         if (isBundledModelUsable(outputFile, markerFile, expectedLength)) {
-            return outputFile.absolutePath
+            return@withContext outputFile.absolutePath
         }
 
         if (outputFile.exists() && !outputFile.delete()) {
@@ -200,7 +226,7 @@ class WhisperPlugin : FlutterPlugin, MethodCallHandler {
                 // Best-effort: leave no stray temp; ignore failure
             }
         }
-        return outputFile.absolutePath
+        return@withContext outputFile.absolutePath
     }
 
     private fun isBundledModelUsable(
@@ -227,5 +253,6 @@ class WhisperPlugin : FlutterPlugin, MethodCallHandler {
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
+        transcribeJob.cancel()
     }
 }
