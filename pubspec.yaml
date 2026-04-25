@@ -22,6 +22,6 @@ flutter:
     platforms:
       android:
         package: com.example.whispercpp_flutter
-        pluginClass: WhispercppFlutterPlugin
+        pluginClass: WhisperPlugin
       ios:
-        pluginClass: WhispercppFlutterPlugin
+        pluginClass: WhisperPlugin

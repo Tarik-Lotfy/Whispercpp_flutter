@@ -26,7 +26,7 @@ apply plugin: "kotlin-android"
 
 android {
     namespace = "com.example.whispercpp_flutter"
-    compileSdk = 34
+    compileSdk = 36
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -39,5 +39,11 @@ android {
 
     defaultConfig {
         minSdk = 21
+    }
+
+    externalNativeBuild {
+        cmake {
+            path = file("src/main/cpp/CMakeLists.txt")
+        }
     }
 }
