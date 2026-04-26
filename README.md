@@ -11,6 +11,21 @@ and the Android plugin bundles `ggml-medium-q5_0.bin` as its built-in model.
 - `lib/` exposes the public Dart API.
 - `android/` contains the Kotlin platform implementation.
 - `ios/` contains the Swift platform implementation.
+- `android/src/main/cpp/third_party/whisper.cpp` is a **Git submodule** with upstream [whisper.cpp](https://github.com/ggml-org/whisper.cpp) (the native inference engine CMake links into the plugin).
+
+## Clone / collaborators
+
+After cloning this repo, pull submodules so the Android NDK build can find whisper.cpp:
+
+```bash
+git submodule update --init --recursive
+```
+
+Or clone in one step:
+
+```bash
+git clone --recurse-submodules <repository-url>
+```
 
 ## Channel
 

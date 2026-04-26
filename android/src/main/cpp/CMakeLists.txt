@@ -22,7 +22,7 @@ endif()
 if(NOT EXISTS "${WHISPER_CPP_DIR}/CMakeLists.txt")
   message(FATAL_ERROR
     "whisper.cpp not found at WHISPER_CPP_DIR='${WHISPER_CPP_DIR}'. "
-    "Clone https://github.com/ggerganov/whisper.cpp into "
+    "Clone https://github.com/ggml-org/whisper.cpp into "
     "'${CMAKE_CURRENT_SOURCE_DIR}/third_party/whisper.cpp', or set Gradle property "
     "whisperCppDir / environment WHISPER_CPP_DIR / CMake -DWHISPER_CPP_DIR to your checkout.")
 endif()
