@@ -7,6 +7,20 @@ class MockWhispercppFlutterPlatform
     with MockPlatformInterfaceMixin
     implements WhispercppFlutterPlatform {
   @override
+  Future<String?> startRecording() async => '/tmp/recording.wav';
+
+  @override
+  Future<String?> stopRecording() async => '/tmp/recording.wav';
+
+  @override
+  Future<String?> stopAndTranscribe({
+    String? modelPath,
+    String language = 'auto',
+  }) async {
+    return 'stop:$language:${modelPath ?? 'bundled-tiny'}:/tmp/recording.wav';
+  }
+
+  @override
   Future<String?> transcribe({
     String? modelPath,
     required String audioPath,
@@ -21,6 +35,36 @@ class MockWhispercppFlutterPlatform
 }
 
 void main() {
+  test('startRecording delegates to platform interface', () async {
+    final plugin = WhispercppFlutter();
+    final fakePlatform = MockWhispercppFlutterPlatform();
+    WhispercppFlutterPlatform.instance = fakePlatform;
+
+    expect(await plugin.startRecording(), '/tmp/recording.wav');
+  });
+
+  test('stopRecording delegates to platform interface', () async {
+    final plugin = WhispercppFlutter();
+    final fakePlatform = MockWhispercppFlutterPlatform();
+    WhispercppFlutterPlatform.instance = fakePlatform;
+
+    expect(await plugin.stopRecording(), '/tmp/recording.wav');
+  });
+
+  test('stopAndTranscribe delegates to platform interface', () async {
+    final plugin = WhispercppFlutter();
+    final fakePlatform = MockWhispercppFlutterPlatform();
+    WhispercppFlutterPlatform.instance = fakePlatform;
+
+    expect(
+      await plugin.stopAndTranscribe(
+        modelPath: '/models/ggml-tiny.bin',
+        language: 'ar',
+      ),
+      'stop:ar:/models/ggml-tiny.bin:/tmp/recording.wav',
+    );
+  });
+
   test('transcribe delegates to platform interface', () async {
     final plugin = WhispercppFlutter();
     final fakePlatform = MockWhispercppFlutterPlatform();

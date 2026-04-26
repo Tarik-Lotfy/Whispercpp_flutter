@@ -1,0 +1,479 @@
+The target system is: Android - 1 - x86_64
+The host system is: Windows - 10.0.26200 - AMD64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe 
+Build flags: -g;-DANDROID;-fdata-sections;-ffunction-sections;-funwind-tables;-fstack-protector-strong;-no-canonical-prefixes;-D_FORTIFY_SOURCE=2;-Wformat;-Werror=format-security;
+Id flags: -c;--target=x86_64-none-linux-android21 
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.o"
+
+The C compiler identification is Clang, found in "D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/3.22.1-g37088a8-dirty/CompilerIdC/CMakeCCompilerId.o"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe 
+Build flags: -g;-DANDROID;-fdata-sections;-ffunction-sections;-funwind-tables;-fstack-protector-strong;-no-canonical-prefixes;-D_FORTIFY_SOURCE=2;-Wformat;-Werror=format-security;;
+Id flags: -c;--target=x86_64-none-linux-android21 
+
+The output was:
+0
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.o"
+
+The CXX compiler identification is Clang, found in "D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/3.22.1-g37088a8-dirty/CompilerIdCXX/CMakeCXXCompilerId.o"
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/CMakeTmp
+
+Run Build Command(s):D:\androidstudio\cmake\3.22.1\bin\ninja.exe cmTC_12b1a && [1/2] Building C object CMakeFiles/cmTC_12b1a.dir/CMakeCCompilerABI.c.o
+Android (12027248, based on r522817) clang version 18.0.1 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)
+Target: x86_64-none-linux-android21
+Thread model: posix
+InstalledDir: D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin
+ (in-process)
+ "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe" -cc1 -triple x86_64-none-linux-android21 -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -target-feature +sse4.2 -target-feature +popcnt -target-feature +cx16 -tune-cpu generic -debug-info-kind=constructor -dwarf-version=4 -debugger-tuning=gdb "-fdebug-compilation-dir=D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/CMakeTmp" -v -ffunction-sections -fdata-sections "-fcoverage-compilation-dir=D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/CMakeTmp" -resource-dir "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18" -dependency-file "CMakeFiles\\cmTC_12b1a.dir\\CMakeCCompilerABI.c.o.d" -MT CMakeFiles/cmTC_12b1a.dir/CMakeCCompilerABI.c.o -sys-header-deps -D ANDROID -D _FORTIFY_SOURCE=2 -isysroot D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot -internal-isystem "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/include" -internal-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/local/include -internal-externc-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android -internal-externc-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/include -internal-externc-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include -Wformat -ferror-limit 19 -femulated-tls -stack-protector 2 -fgnuc-version=4.2.1 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_12b1a.dir/CMakeCCompilerABI.c.o -x c D:/androidstudio/cmake/3.22.1/share/cmake-3.22/Modules/CMakeCCompilerABI.c
+clang -cc1 version 18.0.1 based upon LLVM 18.0.1 default target x86_64-w64-windows-gnu
+ignoring nonexistent directory "D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/local/include"
+ignoring nonexistent directory "D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ D:\androidstudio\ndk\27.0.12077973\toolchains\llvm\prebuilt\windows-x86_64/lib/clang/18/include
+ D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android
+ D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include
+End of search list.
+[2/2] Linking C executable cmTC_12b1a
+Android (12027248, based on r522817) clang version 18.0.1 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)
+Target: x86_64-none-linux-android21
+Thread model: posix
+InstalledDir: D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin
+ "D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin/ld.lld" --sysroot=D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot -z now -z relro --hash-style=both --eh-frame-hdr -m elf_x86_64 -pie -dynamic-linker /system/bin/linker64 -o cmTC_12b1a D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtbegin_dynamic.o "-LD:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/x86_64" -LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21 -LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android -LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib --build-id=sha1 --no-rosegment --no-undefined-version --fatal-warnings --no-undefined CMakeFiles/cmTC_12b1a.dir/CMakeCCompilerABI.c.o "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a" -l:libunwind.a -ldl -lc "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a" -l:libunwind.a -ldl D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtend_android.o
+
+
+
+Parsed C implicit include dir info from above output: rv=done
+  found start of include info
+  found start of implicit include info
+    add: [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/18/include]
+    add: [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android]
+    add: [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include]
+  end of search list found
+  collapse include dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/18/include] ==> [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/18/include]
+  collapse include dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android] ==> [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android]
+  collapse include dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include] ==> [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include]
+  implicit include dirs: [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/18/include;D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android;D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include]
+
+
+Parsed C implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld\.lld\.exe|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command(s):D:\androidstudio\cmake\3.22.1\bin\ninja.exe cmTC_12b1a && [1/2] Building C object CMakeFiles/cmTC_12b1a.dir/CMakeCCompilerABI.c.o]
+  ignore line: [Android (12027248  based on r522817) clang version 18.0.1 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)]
+  ignore line: [Target: x86_64-none-linux-android21]
+  ignore line: [Thread model: posix]
+  ignore line: [InstalledDir: D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin]
+  ignore line: [ (in-process)]
+  ignore line: [ "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe" -cc1 -triple x86_64-none-linux-android21 -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -target-feature +sse4.2 -target-feature +popcnt -target-feature +cx16 -tune-cpu generic -debug-info-kind=constructor -dwarf-version=4 -debugger-tuning=gdb "-fdebug-compilation-dir=D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/CMakeTmp" -v -ffunction-sections -fdata-sections "-fcoverage-compilation-dir=D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/CMakeTmp" -resource-dir "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18" -dependency-file "CMakeFiles\\cmTC_12b1a.dir\\CMakeCCompilerABI.c.o.d" -MT CMakeFiles/cmTC_12b1a.dir/CMakeCCompilerABI.c.o -sys-header-deps -D ANDROID -D _FORTIFY_SOURCE=2 -isysroot D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot -internal-isystem "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/include" -internal-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/local/include -internal-externc-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android -internal-externc-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/include -internal-externc-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include -Wformat -ferror-limit 19 -femulated-tls -stack-protector 2 -fgnuc-version=4.2.1 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_12b1a.dir/CMakeCCompilerABI.c.o -x c D:/androidstudio/cmake/3.22.1/share/cmake-3.22/Modules/CMakeCCompilerABI.c]
+  ignore line: [clang -cc1 version 18.0.1 based upon LLVM 18.0.1 default target x86_64-w64-windows-gnu]
+  ignore line: [ignoring nonexistent directory "D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/local/include"]
+  ignore line: [ignoring nonexistent directory "D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/include"]
+  ignore line: [#include "..." search starts here:]
+  ignore line: [#include <...> search starts here:]
+  ignore line: [ D:\androidstudio\ndk\27.0.12077973\toolchains\llvm\prebuilt\windows-x86_64/lib/clang/18/include]
+  ignore line: [ D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android]
+  ignore line: [ D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include]
+  ignore line: [End of search list.]
+  ignore line: [[2/2] Linking C executable cmTC_12b1a]
+  ignore line: [Android (12027248  based on r522817) clang version 18.0.1 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)]
+  ignore line: [Target: x86_64-none-linux-android21]
+  ignore line: [Thread model: posix]
+  ignore line: [InstalledDir: D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin]
+  link line: [ "D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin/ld.lld" --sysroot=D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot -z now -z relro --hash-style=both --eh-frame-hdr -m elf_x86_64 -pie -dynamic-linker /system/bin/linker64 -o cmTC_12b1a D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtbegin_dynamic.o "-LD:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/x86_64" -LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21 -LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android -LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib --build-id=sha1 --no-rosegment --no-undefined-version --fatal-warnings --no-undefined CMakeFiles/cmTC_12b1a.dir/CMakeCCompilerABI.c.o "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a" -l:libunwind.a -ldl -lc "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a" -l:libunwind.a -ldl D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtend_android.o]
+    arg [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin/ld.lld] ==> ignore
+    arg [--sysroot=D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot] ==> ignore
+    arg [-znow] ==> ignore
+    arg [-zrelro] ==> ignore
+    arg [--hash-style=both] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-m] ==> ignore
+    arg [elf_x86_64] ==> ignore
+    arg [-pie] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/system/bin/linker64] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_12b1a] ==> ignore
+    arg [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtbegin_dynamic.o] ==> obj [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtbegin_dynamic.o]
+    arg [-LD:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/x86_64] ==> dir [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/x86_64]
+    arg [-LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21] ==> dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21]
+    arg [-LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android] ==> dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android]
+    arg [-LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib] ==> dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib]
+    arg [--build-id=sha1] ==> ignore
+    arg [--no-rosegment] ==> ignore
+    arg [--no-undefined-version] ==> ignore
+    arg [--fatal-warnings] ==> ignore
+    arg [--no-undefined] ==> ignore
+    arg [CMakeFiles/cmTC_12b1a.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a] ==> lib [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a]
+    arg [-l:libunwind.a] ==> lib [-l:libunwind.a]
+    arg [-ldl] ==> lib [dl]
+    arg [-lc] ==> lib [c]
+    arg [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a] ==> lib [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a]
+    arg [-l:libunwind.a] ==> lib [-l:libunwind.a]
+    arg [-ldl] ==> lib [dl]
+    arg [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtend_android.o] ==> obj [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtend_android.o]
+  remove lib [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a]
+  remove lib [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a]
+  collapse library dir [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/x86_64] ==> [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/18/lib/linux/x86_64]
+  collapse library dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21] ==> [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21]
+  collapse library dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android] ==> [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android]
+  collapse library dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib] ==> [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib]
+  implicit libs: [-l:libunwind.a;dl;c;-l:libunwind.a;dl]
+  implicit objs: [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtbegin_dynamic.o;D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtend_android.o]
+  implicit dirs: [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/18/lib/linux/x86_64;D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21;D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android;D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib]
+  implicit fwks: []
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/CMakeTmp
+
+Run Build Command(s):D:\androidstudio\cmake\3.22.1\bin\ninja.exe cmTC_652df && [1/2] Building CXX object CMakeFiles/cmTC_652df.dir/CMakeCXXCompilerABI.cpp.o
+Android (12027248, based on r522817) clang version 18.0.1 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)
+Target: x86_64-none-linux-android21
+Thread model: posix
+InstalledDir: D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin
+ (in-process)
+ "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe" -cc1 -triple x86_64-none-linux-android21 -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -target-feature +sse4.2 -target-feature +popcnt -target-feature +cx16 -tune-cpu generic -debug-info-kind=constructor -dwarf-version=4 -debugger-tuning=gdb "-fdebug-compilation-dir=D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/CMakeTmp" -v -ffunction-sections -fdata-sections "-fcoverage-compilation-dir=D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/CMakeTmp" -resource-dir "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18" -dependency-file "CMakeFiles\\cmTC_652df.dir\\CMakeCXXCompilerABI.cpp.o.d" -MT CMakeFiles/cmTC_652df.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -D ANDROID -D _FORTIFY_SOURCE=2 -isysroot D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot -internal-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1 -internal-isystem "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/include" -internal-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/local/include -internal-externc-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android -internal-externc-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/include -internal-externc-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include -Wformat -fdeprecated-macro -ferror-limit 19 -femulated-tls -stack-protector 2 -fgnuc-version=4.2.1 -fcxx-exceptions -fexceptions -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_652df.dir/CMakeCXXCompilerABI.cpp.o -x c++ D:/androidstudio/cmake/3.22.1/share/cmake-3.22/Modules/CMakeCXXCompilerABI.cpp
+clang -cc1 version 18.0.1 based upon LLVM 18.0.1 default target x86_64-w64-windows-gnu
+ignoring nonexistent directory "D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/local/include"
+ignoring nonexistent directory "D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1
+ D:\androidstudio\ndk\27.0.12077973\toolchains\llvm\prebuilt\windows-x86_64/lib/clang/18/include
+ D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android
+ D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include
+End of search list.
+[2/2] Linking CXX executable cmTC_652df
+Android (12027248, based on r522817) clang version 18.0.1 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)
+Target: x86_64-none-linux-android21
+Thread model: posix
+InstalledDir: D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin
+ "D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin/ld.lld" --sysroot=D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot -z now -z relro --hash-style=both --eh-frame-hdr -m elf_x86_64 -pie -dynamic-linker /system/bin/linker64 -o cmTC_652df D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtbegin_dynamic.o "-LD:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/x86_64" -LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21 -LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android -LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib --build-id=sha1 --no-rosegment --no-undefined-version --fatal-warnings --no-undefined CMakeFiles/cmTC_652df.dir/CMakeCXXCompilerABI.cpp.o -Bstatic -lc++ -Bdynamic -lm "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a" -l:libunwind.a -ldl -lc "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a" -l:libunwind.a -ldl D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtend_android.o
+
+
+
+Parsed CXX implicit include dir info from above output: rv=done
+  found start of include info
+  found start of implicit include info
+    add: [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1]
+    add: [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/18/include]
+    add: [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android]
+    add: [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include]
+  end of search list found
+  collapse include dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1] ==> [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1]
+  collapse include dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/18/include] ==> [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/18/include]
+  collapse include dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android] ==> [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android]
+  collapse include dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include] ==> [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include]
+  implicit include dirs: [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1;D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/18/include;D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android;D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include]
+
+
+Parsed CXX implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld\.lld\.exe|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command(s):D:\androidstudio\cmake\3.22.1\bin\ninja.exe cmTC_652df && [1/2] Building CXX object CMakeFiles/cmTC_652df.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [Android (12027248  based on r522817) clang version 18.0.1 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)]
+  ignore line: [Target: x86_64-none-linux-android21]
+  ignore line: [Thread model: posix]
+  ignore line: [InstalledDir: D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin]
+  ignore line: [ (in-process)]
+  ignore line: [ "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe" -cc1 -triple x86_64-none-linux-android21 -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -target-feature +sse4.2 -target-feature +popcnt -target-feature +cx16 -tune-cpu generic -debug-info-kind=constructor -dwarf-version=4 -debugger-tuning=gdb "-fdebug-compilation-dir=D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/CMakeTmp" -v -ffunction-sections -fdata-sections "-fcoverage-compilation-dir=D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/CMakeTmp" -resource-dir "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18" -dependency-file "CMakeFiles\\cmTC_652df.dir\\CMakeCXXCompilerABI.cpp.o.d" -MT CMakeFiles/cmTC_652df.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -D ANDROID -D _FORTIFY_SOURCE=2 -isysroot D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot -internal-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1 -internal-isystem "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/include" -internal-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/local/include -internal-externc-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android -internal-externc-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/include -internal-externc-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include -Wformat -fdeprecated-macro -ferror-limit 19 -femulated-tls -stack-protector 2 -fgnuc-version=4.2.1 -fcxx-exceptions -fexceptions -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_652df.dir/CMakeCXXCompilerABI.cpp.o -x c++ D:/androidstudio/cmake/3.22.1/share/cmake-3.22/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [clang -cc1 version 18.0.1 based upon LLVM 18.0.1 default target x86_64-w64-windows-gnu]
+  ignore line: [ignoring nonexistent directory "D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/local/include"]
+  ignore line: [ignoring nonexistent directory "D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/include"]
+  ignore line: [#include "..." search starts here:]
+  ignore line: [#include <...> search starts here:]
+  ignore line: [ D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1]
+  ignore line: [ D:\androidstudio\ndk\27.0.12077973\toolchains\llvm\prebuilt\windows-x86_64/lib/clang/18/include]
+  ignore line: [ D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android]
+  ignore line: [ D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include]
+  ignore line: [End of search list.]
+  ignore line: [[2/2] Linking CXX executable cmTC_652df]
+  ignore line: [Android (12027248  based on r522817) clang version 18.0.1 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)]
+  ignore line: [Target: x86_64-none-linux-android21]
+  ignore line: [Thread model: posix]
+  ignore line: [InstalledDir: D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin]
+  link line: [ "D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin/ld.lld" --sysroot=D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot -z now -z relro --hash-style=both --eh-frame-hdr -m elf_x86_64 -pie -dynamic-linker /system/bin/linker64 -o cmTC_652df D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtbegin_dynamic.o "-LD:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/x86_64" -LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21 -LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android -LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib --build-id=sha1 --no-rosegment --no-undefined-version --fatal-warnings --no-undefined CMakeFiles/cmTC_652df.dir/CMakeCXXCompilerABI.cpp.o -Bstatic -lc++ -Bdynamic -lm "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a" -l:libunwind.a -ldl -lc "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a" -l:libunwind.a -ldl D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtend_android.o]
+    arg [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin/ld.lld] ==> ignore
+    arg [--sysroot=D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot] ==> ignore
+    arg [-znow] ==> ignore
+    arg [-zrelro] ==> ignore
+    arg [--hash-style=both] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-m] ==> ignore
+    arg [elf_x86_64] ==> ignore
+    arg [-pie] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/system/bin/linker64] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_652df] ==> ignore
+    arg [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtbegin_dynamic.o] ==> obj [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtbegin_dynamic.o]
+    arg [-LD:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/x86_64] ==> dir [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/x86_64]
+    arg [-LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21] ==> dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21]
+    arg [-LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android] ==> dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android]
+    arg [-LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib] ==> dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib]
+    arg [--build-id=sha1] ==> ignore
+    arg [--no-rosegment] ==> ignore
+    arg [--no-undefined-version] ==> ignore
+    arg [--fatal-warnings] ==> ignore
+    arg [--no-undefined] ==> ignore
+    arg [CMakeFiles/cmTC_652df.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [-Bstatic] ==> search static
+    arg [-lc++] ==> lib [c++]
+    arg [-Bdynamic] ==> search dynamic
+    arg [-lm] ==> lib [m]
+    arg [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a] ==> lib [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a]
+    arg [-l:libunwind.a] ==> lib [-l:libunwind.a]
+    arg [-ldl] ==> lib [dl]
+    arg [-lc] ==> lib [c]
+    arg [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a] ==> lib [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a]
+    arg [-l:libunwind.a] ==> lib [-l:libunwind.a]
+    arg [-ldl] ==> lib [dl]
+    arg [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtend_android.o] ==> obj [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtend_android.o]
+  remove lib [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a]
+  remove lib [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a]
+  collapse library dir [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/x86_64] ==> [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/18/lib/linux/x86_64]
+  collapse library dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21] ==> [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21]
+  collapse library dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android] ==> [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android]
+  collapse library dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib] ==> [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib]
+  implicit libs: [c++;m;-l:libunwind.a;dl;c;-l:libunwind.a;dl]
+  implicit objs: [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtbegin_dynamic.o;D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtend_android.o]
+  implicit dirs: [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/18/lib/linux/x86_64;D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21;D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android;D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib]
+  implicit fwks: []
+
+
+Checking whether the ASM compiler is Clang using "--version" matched "(clang version)":
+Android (12027248, based on r522817) clang version 18.0.1 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)
+Target: x86_64-w64-windows-gnu
+Thread model: posix
+InstalledDir: D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin
+Determining if the include file pthread.h exists passed with the following output:
+Change Dir: D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/CMakeTmp
+
+Run Build Command(s):D:\androidstudio\cmake\3.22.1\bin\ninja.exe cmTC_11326 && [1/2] Building C object CMakeFiles/cmTC_11326.dir/CheckIncludeFile.c.o
+[2/2] Linking C executable cmTC_11326
+
+
+
+Detecting C OpenMP compiler ABI info compiled with the following output:
+Change Dir: D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/CMakeTmp
+
+Run Build Command(s):D:\androidstudio\cmake\3.22.1\bin\ninja.exe cmTC_2a80a && [1/2] Building C object CMakeFiles/cmTC_2a80a.dir/OpenMPTryFlag.c.o
+Android (12027248, based on r522817) clang version 18.0.1 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)
+Target: x86_64-none-linux-android21
+Thread model: posix
+InstalledDir: D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin
+ (in-process)
+ "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe" -cc1 -triple x86_64-none-linux-android21 -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name OpenMPTryFlag.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -target-feature +sse4.2 -target-feature +popcnt -target-feature +cx16 -tune-cpu generic -debug-info-kind=constructor -dwarf-version=4 -debugger-tuning=gdb "-fdebug-compilation-dir=D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/CMakeTmp" -v -ffunction-sections -fdata-sections "-fcoverage-compilation-dir=D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/CMakeTmp" -resource-dir "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18" -dependency-file "CMakeFiles\\cmTC_2a80a.dir\\OpenMPTryFlag.c.o.d" -MT CMakeFiles/cmTC_2a80a.dir/OpenMPTryFlag.c.o -sys-header-deps -D ANDROID -D _FORTIFY_SOURCE=2 -isysroot D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot -internal-isystem "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/include" -internal-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/local/include -internal-externc-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android -internal-externc-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/include -internal-externc-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include -Wformat -Werror=format-security -std=gnu11 -ferror-limit 19 -femulated-tls -fopenmp -stack-protector 2 -fgnuc-version=4.2.1 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_2a80a.dir/OpenMPTryFlag.c.o -x c "D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/FindOpenMP/OpenMPTryFlag.c"
+clang -cc1 version 18.0.1 based upon LLVM 18.0.1 default target x86_64-w64-windows-gnu
+ignoring nonexistent directory "D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/local/include"
+ignoring nonexistent directory "D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ D:\androidstudio\ndk\27.0.12077973\toolchains\llvm\prebuilt\windows-x86_64/lib/clang/18/include
+ D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android
+ D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include
+End of search list.
+[2/2] Linking C executable cmTC_2a80a
+Android (12027248, based on r522817) clang version 18.0.1 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)
+Target: x86_64-none-linux-android21
+Thread model: posix
+InstalledDir: D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin
+ "D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin/ld.lld" --sysroot=D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot -z now -z relro --hash-style=both --eh-frame-hdr -m elf_x86_64 -pie -dynamic-linker /system/bin/linker64 -o cmTC_2a80a D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtbegin_dynamic.o "-LD:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/x86_64" -LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21 -LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android -LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib --build-id=sha1 --no-rosegment --no-undefined-version --fatal-warnings --no-undefined CMakeFiles/cmTC_2a80a.dir/OpenMPTryFlag.c.o -latomic -lm -lomp "-LD:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib" "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a" -l:libunwind.a -ldl -lc "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a" -l:libunwind.a -ldl D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtend_android.o
+
+
+
+Parsed C OpenMP implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld\.lld\.exe|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command(s):D:\androidstudio\cmake\3.22.1\bin\ninja.exe cmTC_2a80a && [1/2] Building C object CMakeFiles/cmTC_2a80a.dir/OpenMPTryFlag.c.o]
+  ignore line: [Android (12027248  based on r522817) clang version 18.0.1 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)]
+  ignore line: [Target: x86_64-none-linux-android21]
+  ignore line: [Thread model: posix]
+  ignore line: [InstalledDir: D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin]
+  ignore line: [ (in-process)]
+  ignore line: [ "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe" -cc1 -triple x86_64-none-linux-android21 -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name OpenMPTryFlag.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -target-feature +sse4.2 -target-feature +popcnt -target-feature +cx16 -tune-cpu generic -debug-info-kind=constructor -dwarf-version=4 -debugger-tuning=gdb "-fdebug-compilation-dir=D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/CMakeTmp" -v -ffunction-sections -fdata-sections "-fcoverage-compilation-dir=D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/CMakeTmp" -resource-dir "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18" -dependency-file "CMakeFiles\\cmTC_2a80a.dir\\OpenMPTryFlag.c.o.d" -MT CMakeFiles/cmTC_2a80a.dir/OpenMPTryFlag.c.o -sys-header-deps -D ANDROID -D _FORTIFY_SOURCE=2 -isysroot D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot -internal-isystem "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/include" -internal-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/local/include -internal-externc-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android -internal-externc-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/include -internal-externc-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include -Wformat -Werror=format-security -std=gnu11 -ferror-limit 19 -femulated-tls -fopenmp -stack-protector 2 -fgnuc-version=4.2.1 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_2a80a.dir/OpenMPTryFlag.c.o -x c "D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/FindOpenMP/OpenMPTryFlag.c"]
+  ignore line: [clang -cc1 version 18.0.1 based upon LLVM 18.0.1 default target x86_64-w64-windows-gnu]
+  ignore line: [ignoring nonexistent directory "D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/local/include"]
+  ignore line: [ignoring nonexistent directory "D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/include"]
+  ignore line: [#include "..." search starts here:]
+  ignore line: [#include <...> search starts here:]
+  ignore line: [ D:\androidstudio\ndk\27.0.12077973\toolchains\llvm\prebuilt\windows-x86_64/lib/clang/18/include]
+  ignore line: [ D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android]
+  ignore line: [ D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include]
+  ignore line: [End of search list.]
+  ignore line: [[2/2] Linking C executable cmTC_2a80a]
+  ignore line: [Android (12027248  based on r522817) clang version 18.0.1 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)]
+  ignore line: [Target: x86_64-none-linux-android21]
+  ignore line: [Thread model: posix]
+  ignore line: [InstalledDir: D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin]
+  link line: [ "D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin/ld.lld" --sysroot=D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot -z now -z relro --hash-style=both --eh-frame-hdr -m elf_x86_64 -pie -dynamic-linker /system/bin/linker64 -o cmTC_2a80a D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtbegin_dynamic.o "-LD:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/x86_64" -LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21 -LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android -LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib --build-id=sha1 --no-rosegment --no-undefined-version --fatal-warnings --no-undefined CMakeFiles/cmTC_2a80a.dir/OpenMPTryFlag.c.o -latomic -lm -lomp "-LD:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib" "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a" -l:libunwind.a -ldl -lc "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a" -l:libunwind.a -ldl D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtend_android.o]
+    arg [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin/ld.lld] ==> ignore
+    arg [--sysroot=D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot] ==> ignore
+    arg [-znow] ==> ignore
+    arg [-zrelro] ==> ignore
+    arg [--hash-style=both] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-m] ==> ignore
+    arg [elf_x86_64] ==> ignore
+    arg [-pie] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/system/bin/linker64] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_2a80a] ==> ignore
+    arg [-LD:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/x86_64] ==> dir [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/x86_64]
+    arg [-LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21] ==> dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21]
+    arg [-LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android] ==> dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android]
+    arg [-LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib] ==> dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib]
+    arg [--build-id=sha1] ==> ignore
+    arg [--no-rosegment] ==> ignore
+    arg [--no-undefined-version] ==> ignore
+    arg [--fatal-warnings] ==> ignore
+    arg [--no-undefined] ==> ignore
+    arg [CMakeFiles/cmTC_2a80a.dir/OpenMPTryFlag.c.o] ==> ignore
+    arg [-latomic] ==> lib [atomic]
+    arg [-lm] ==> lib [m]
+    arg [-lomp] ==> lib [omp]
+    arg [-LD:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib] ==> dir [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib]
+    arg [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a] ==> lib [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a]
+    arg [-l:libunwind.a] ==> lib [-l:libunwind.a]
+    arg [-ldl] ==> lib [dl]
+    arg [-lc] ==> lib [c]
+    arg [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a] ==> lib [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a]
+    arg [-l:libunwind.a] ==> lib [-l:libunwind.a]
+    arg [-ldl] ==> lib [dl]
+  remove lib [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a]
+  remove lib [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a]
+  collapse library dir [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/x86_64] ==> [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/18/lib/linux/x86_64]
+  collapse library dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21] ==> [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21]
+  collapse library dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android] ==> [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android]
+  collapse library dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib] ==> [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib]
+  collapse library dir [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib] ==> [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/lib]
+  implicit libs: [atomic;m;omp;-l:libunwind.a;dl;c;-l:libunwind.a;dl]
+  implicit objs: []
+  implicit dirs: [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/18/lib/linux/x86_64;D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21;D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android;D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib;D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/lib]
+  implicit fwks: []
+
+
+Detecting CXX OpenMP compiler ABI info compiled with the following output:
+Change Dir: D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/CMakeTmp
+
+Run Build Command(s):D:\androidstudio\cmake\3.22.1\bin\ninja.exe cmTC_47579 && [1/2] Building CXX object CMakeFiles/cmTC_47579.dir/OpenMPTryFlag.cpp.o
+Android (12027248, based on r522817) clang version 18.0.1 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)
+Target: x86_64-none-linux-android21
+Thread model: posix
+InstalledDir: D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin
+ (in-process)
+ "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe" -cc1 -triple x86_64-none-linux-android21 -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name OpenMPTryFlag.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -target-feature +sse4.2 -target-feature +popcnt -target-feature +cx16 -tune-cpu generic -debug-info-kind=constructor -dwarf-version=4 -debugger-tuning=gdb "-fdebug-compilation-dir=D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/CMakeTmp" -v -ffunction-sections -fdata-sections "-fcoverage-compilation-dir=D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/CMakeTmp" -resource-dir "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18" -dependency-file "CMakeFiles\\cmTC_47579.dir\\OpenMPTryFlag.cpp.o.d" -MT CMakeFiles/cmTC_47579.dir/OpenMPTryFlag.cpp.o -sys-header-deps -D ANDROID -D _FORTIFY_SOURCE=2 -isysroot D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot -internal-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1 -internal-isystem "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/include" -internal-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/local/include -internal-externc-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android -internal-externc-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/include -internal-externc-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include -Wformat -Werror=format-security -std=gnu++17 -fdeprecated-macro -ferror-limit 19 -femulated-tls -fopenmp -stack-protector 2 -fgnuc-version=4.2.1 -fcxx-exceptions -fexceptions -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_47579.dir/OpenMPTryFlag.cpp.o -x c++ "D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp"
+clang -cc1 version 18.0.1 based upon LLVM 18.0.1 default target x86_64-w64-windows-gnu
+ignoring nonexistent directory "D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/local/include"
+ignoring nonexistent directory "D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1
+ D:\androidstudio\ndk\27.0.12077973\toolchains\llvm\prebuilt\windows-x86_64/lib/clang/18/include
+ D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android
+ D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include
+End of search list.
+[2/2] Linking CXX executable cmTC_47579
+Android (12027248, based on r522817) clang version 18.0.1 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)
+Target: x86_64-none-linux-android21
+Thread model: posix
+InstalledDir: D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin
+ "D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin/ld.lld" --sysroot=D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot -z now -z relro --hash-style=both --eh-frame-hdr -m elf_x86_64 -pie -dynamic-linker /system/bin/linker64 -o cmTC_47579 D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtbegin_dynamic.o "-LD:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/x86_64" -LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21 -LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android -LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib --build-id=sha1 --no-rosegment --no-undefined-version --fatal-warnings --no-undefined CMakeFiles/cmTC_47579.dir/OpenMPTryFlag.cpp.o -latomic -lm -Bstatic -lc++ -Bdynamic -lm -lomp "-LD:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib" "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a" -l:libunwind.a -ldl -lc "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a" -l:libunwind.a -ldl D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtend_android.o
+
+
+
+Parsed CXX OpenMP implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld\.lld\.exe|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command(s):D:\androidstudio\cmake\3.22.1\bin\ninja.exe cmTC_47579 && [1/2] Building CXX object CMakeFiles/cmTC_47579.dir/OpenMPTryFlag.cpp.o]
+  ignore line: [Android (12027248  based on r522817) clang version 18.0.1 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)]
+  ignore line: [Target: x86_64-none-linux-android21]
+  ignore line: [Thread model: posix]
+  ignore line: [InstalledDir: D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin]
+  ignore line: [ (in-process)]
+  ignore line: [ "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe" -cc1 -triple x86_64-none-linux-android21 -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name OpenMPTryFlag.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -target-feature +sse4.2 -target-feature +popcnt -target-feature +cx16 -tune-cpu generic -debug-info-kind=constructor -dwarf-version=4 -debugger-tuning=gdb "-fdebug-compilation-dir=D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/CMakeTmp" -v -ffunction-sections -fdata-sections "-fcoverage-compilation-dir=D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/CMakeTmp" -resource-dir "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18" -dependency-file "CMakeFiles\\cmTC_47579.dir\\OpenMPTryFlag.cpp.o.d" -MT CMakeFiles/cmTC_47579.dir/OpenMPTryFlag.cpp.o -sys-header-deps -D ANDROID -D _FORTIFY_SOURCE=2 -isysroot D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot -internal-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1 -internal-isystem "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/include" -internal-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/local/include -internal-externc-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android -internal-externc-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/include -internal-externc-isystem D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include -Wformat -Werror=format-security -std=gnu++17 -fdeprecated-macro -ferror-limit 19 -femulated-tls -fopenmp -stack-protector 2 -fgnuc-version=4.2.1 -fcxx-exceptions -fexceptions -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_47579.dir/OpenMPTryFlag.cpp.o -x c++ "D:/Projects/New project/android/.cxx/Debug/254z4r3c/x86_64/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp"]
+  ignore line: [clang -cc1 version 18.0.1 based upon LLVM 18.0.1 default target x86_64-w64-windows-gnu]
+  ignore line: [ignoring nonexistent directory "D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/local/include"]
+  ignore line: [ignoring nonexistent directory "D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/include"]
+  ignore line: [#include "..." search starts here:]
+  ignore line: [#include <...> search starts here:]
+  ignore line: [ D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1]
+  ignore line: [ D:\androidstudio\ndk\27.0.12077973\toolchains\llvm\prebuilt\windows-x86_64/lib/clang/18/include]
+  ignore line: [ D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android]
+  ignore line: [ D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include]
+  ignore line: [End of search list.]
+  ignore line: [[2/2] Linking CXX executable cmTC_47579]
+  ignore line: [Android (12027248  based on r522817) clang version 18.0.1 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)]
+  ignore line: [Target: x86_64-none-linux-android21]
+  ignore line: [Thread model: posix]
+  ignore line: [InstalledDir: D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin]
+  link line: [ "D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin/ld.lld" --sysroot=D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot -z now -z relro --hash-style=both --eh-frame-hdr -m elf_x86_64 -pie -dynamic-linker /system/bin/linker64 -o cmTC_47579 D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtbegin_dynamic.o "-LD:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/x86_64" -LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21 -LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android -LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib --build-id=sha1 --no-rosegment --no-undefined-version --fatal-warnings --no-undefined CMakeFiles/cmTC_47579.dir/OpenMPTryFlag.cpp.o -latomic -lm -Bstatic -lc++ -Bdynamic -lm -lomp "-LD:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib" "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a" -l:libunwind.a -ldl -lc "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a" -l:libunwind.a -ldl D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21/crtend_android.o]
+    arg [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/bin/ld.lld] ==> ignore
+    arg [--sysroot=D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot] ==> ignore
+    arg [-znow] ==> ignore
+    arg [-zrelro] ==> ignore
+    arg [--hash-style=both] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-m] ==> ignore
+    arg [elf_x86_64] ==> ignore
+    arg [-pie] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/system/bin/linker64] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_47579] ==> ignore
+    arg [-LD:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/x86_64] ==> dir [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/x86_64]
+    arg [-LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21] ==> dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21]
+    arg [-LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android] ==> dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android]
+    arg [-LD:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib] ==> dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib]
+    arg [--build-id=sha1] ==> ignore
+    arg [--no-rosegment] ==> ignore
+    arg [--no-undefined-version] ==> ignore
+    arg [--fatal-warnings] ==> ignore
+    arg [--no-undefined] ==> ignore
+    arg [CMakeFiles/cmTC_47579.dir/OpenMPTryFlag.cpp.o] ==> ignore
+    arg [-latomic] ==> lib [atomic]
+    arg [-lm] ==> lib [m]
+    arg [-Bstatic] ==> search static
+    arg [-lc++] ==> lib [c++]
+    arg [-Bdynamic] ==> search dynamic
+    arg [-lm] ==> lib [m]
+    arg [-lomp] ==> lib [omp]
+    arg [-LD:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib] ==> dir [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib]
+    arg [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a] ==> lib [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a]
+    arg [-l:libunwind.a] ==> lib [-l:libunwind.a]
+    arg [-ldl] ==> lib [dl]
+    arg [-lc] ==> lib [c]
+    arg [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a] ==> lib [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a]
+    arg [-l:libunwind.a] ==> lib [-l:libunwind.a]
+    arg [-ldl] ==> lib [dl]
+  remove lib [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a]
+  remove lib [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/libclang_rt.builtins-x86_64-android.a]
+  collapse library dir [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib/clang/18/lib/linux/x86_64] ==> [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/18/lib/linux/x86_64]
+  collapse library dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21] ==> [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21]
+  collapse library dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android] ==> [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android]
+  collapse library dir [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib] ==> [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib]
+  collapse library dir [D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64/lib] ==> [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/lib]
+  implicit libs: [atomic;m;c++;m;omp;-l:libunwind.a;dl;c;-l:libunwind.a;dl]
+  implicit objs: []
+  implicit dirs: [D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/18/lib/linux/x86_64;D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android/21;D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/x86_64-linux-android;D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib;D:/androidstudio/ndk/27.0.12077973/toolchains/llvm/prebuilt/windows-x86_64/lib]
+  implicit fwks: []
+
+

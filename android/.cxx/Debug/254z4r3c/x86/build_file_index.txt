@@ -1,0 +1,6 @@
+D:\Projects\New project\android\src\main\cpp\CMakeLists.txt
+D:\Projects\whisper.cpp\CMakeLists.txt
+D:\Projects\whisper.cpp\ggml\CMakeLists.txt
+D:\Projects\whisper.cpp\ggml\src\CMakeLists.txt
+D:\Projects\whisper.cpp\ggml\src\ggml-cpu\CMakeLists.txt
+D:\Projects\whisper.cpp\src\CMakeLists.txt
