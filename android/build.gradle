@@ -44,10 +44,10 @@ android {
     externalNativeBuild {
         cmake {
             path = file("src/main/cpp/CMakeLists.txt")
+            def whisperCppDir = project.findProperty("whisperCppDir") ?: System.getenv("WHISPER_CPP_DIR")
+            if (whisperCppDir != null && !whisperCppDir.toString().trim().isEmpty()) {
+                arguments "-DWHISPER_CPP_DIR=${whisperCppDir}"
+            }
         }
     }
-}
-
-dependencies {
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1"
 }

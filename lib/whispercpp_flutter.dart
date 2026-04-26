@@ -7,6 +7,24 @@ abstract final class WhisperLanguages {
 }
 
 class WhispercppFlutter {
+  Future<String?> startRecording() {
+    return WhispercppFlutterPlatform.instance.startRecording();
+  }
+
+  Future<String?> stopRecording() {
+    return WhispercppFlutterPlatform.instance.stopRecording();
+  }
+
+  Future<String?> stopAndTranscribe({
+    String? modelPath,
+    String language = WhisperLanguages.auto,
+  }) {
+    return WhispercppFlutterPlatform.instance.stopAndTranscribe(
+      modelPath: modelPath,
+      language: language,
+    );
+  }
+
   Future<String?> transcribe({
     String? modelPath,
     required String audioPath,
@@ -19,7 +37,11 @@ class WhispercppFlutter {
     );
   }
 
-  Future<String?> getBundledTinyModelPath() {
-    return WhispercppFlutterPlatform.instance.getBundledTinyModelPath();
+  Future<String?> getBundledModelPath({
+    String modelFileName = bundeledWhisperModelName,
+  }) {
+    return WhispercppFlutterPlatform.instance.getBundledModelPath(
+      modelFileName: modelFileName,
+    );
   }
 }

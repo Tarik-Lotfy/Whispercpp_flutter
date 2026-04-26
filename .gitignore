@@ -11,8 +11,15 @@ build/
 # Android Gradle build cache
 android/.gradle/
 
+# Android NDK / CMake output (local; do not commit)
+android/.cxx/
+
+# Local whisper.cpp checkout for NDK builds (see android/src/main/cpp/CMakeLists.txt)
+android/src/main/cpp/third_party/whisper.cpp/
+
 # Ad-hoc compiler outputs
 *.o
 
 # Local / agent notes (not for the public repo)
 local/
+/example/
