@@ -37,7 +37,11 @@ class WhispercppFlutter {
     );
   }
 
-  Future<String?> getBundledTinyModelPath() {
-    return WhispercppFlutterPlatform.instance.getBundledTinyModelPath();
+  Future<String?> getBundledModelPath({
+    String modelFileName = bundeledWhisperModelName,
+  }) {
+    return WhispercppFlutterPlatform.instance.getBundledModelPath(
+      modelFileName: modelFileName,
+    );
   }
 }

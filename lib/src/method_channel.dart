@@ -48,7 +48,12 @@ class MethodChannelWhispercppFlutter extends WhispercppFlutterPlatform {
   }
 
   @override
-  Future<String?> getBundledTinyModelPath() {
-    return methodChannel.invokeMethod<String>('getBundledTinyModelPath');
+  Future<String?> getBundledModelPath({
+    String modelFileName = bundeledWhisperModelName,
+  }) {
+    return methodChannel.invokeMethod<String>(
+      'getBundledModelPath',
+      <String, Object?>{'modelFileName': modelFileName},
+    );
   }
 }

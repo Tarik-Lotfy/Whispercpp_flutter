@@ -4,7 +4,7 @@ A Flutter plugin for on-device speech recognition with Android microphone captur
 and Whisper-powered transcription.
 
 The current transcription API is set up for multilingual testing, including Arabic,
-and the Android plugin now bundles `ggml-tiny.bin` as its default built-in model.
+and the Android plugin bundles `ggml-medium-q5_0.bin` as its built-in model.
 
 ## Structure
 
@@ -24,7 +24,7 @@ Currently implemented methods:
 - `stopRecording`
 - `stopAndTranscribe`
 - `transcribe`
-- `getBundledTinyModelPath`
+- `getBundledModelPath` (optional `modelFileName`, default `ggml-medium-q5_0.bin`)
 
 ## Usage
 
@@ -38,15 +38,16 @@ final arabicText = await controller.stopAndTranscribe(
   language: 'ar',
 );
 
-final bundledModelPath = await controller.getBundledTinyModelPath();
+final bundledModelPath = await controller.getBundledModelPath();
 ```
 
 ## Notes
 
 - Android microphone capture records mono 16 kHz WAV files internally.
 - The app still needs runtime microphone permission before `startRecording()`.
-- The Android plugin bundles multilingual `ggml-tiny.bin` by default.
+- The Android plugin ships multilingual `ggml-medium-q5_0.bin` under `assets/models/`.
 - You can still call `transcribe(audioPath: ...)` directly for debugging.
+- To use a different bundled file, pass `modelFileName` to `getBundledModelPath` and the same path into `transcribe` / `stopAndTranscribe`.
 
 ## Arabic testing
 

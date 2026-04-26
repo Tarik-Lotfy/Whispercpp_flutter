@@ -17,7 +17,7 @@ class MockWhispercppFlutterPlatform
     String? modelPath,
     String language = 'auto',
   }) async {
-    return 'stop:$language:${modelPath ?? 'bundled-tiny'}:/tmp/recording.wav';
+    return 'stop:$language:${modelPath ?? 'bundled-default'}:/tmp/recording.wav';
   }
 
   @override
@@ -26,12 +26,14 @@ class MockWhispercppFlutterPlatform
     required String audioPath,
     String language = 'auto',
   }) async {
-    return 'stub:$language:${modelPath ?? 'bundled-tiny'}:$audioPath';
+    return 'stub:$language:${modelPath ?? 'bundled-default'}:$audioPath';
   }
 
   @override
-  Future<String?> getBundledTinyModelPath() async =>
-      '/models/bundled/ggml-tiny.bin';
+  Future<String?> getBundledModelPath({
+    String modelFileName = bundeledWhisperModelName,
+  }) async =>
+      '/models/bundled/$modelFileName';
 }
 
 void main() {
@@ -58,10 +60,10 @@ void main() {
 
     expect(
       await plugin.stopAndTranscribe(
-        modelPath: '/models/ggml-tiny.bin',
+        modelPath: '/models/ggml-medium-q5_0.bin',
         language: 'ar',
       ),
-      'stop:ar:/models/ggml-tiny.bin:/tmp/recording.wav',
+      'stop:ar:/models/ggml-medium-q5_0.bin:/tmp/recording.wav',
     );
   });
 
@@ -72,33 +74,38 @@ void main() {
 
     expect(
       await plugin.transcribe(
-        modelPath: '/models/ggml-tiny.bin',
+        modelPath: '/models/ggml-medium-q5_0.bin',
         audioPath: '/audio/sample.wav',
         language: 'ar',
       ),
-      'stub:ar:/models/ggml-tiny.bin:/audio/sample.wav',
+      'stub:ar:/models/ggml-medium-q5_0.bin:/audio/sample.wav',
     );
   });
 
-  test('transcribe uses the bundled tiny model by default', () async {
+  test('transcribe uses the bundled default model when modelPath is null',
+      () async {
     final plugin = WhispercppFlutter();
     final fakePlatform = MockWhispercppFlutterPlatform();
     WhispercppFlutterPlatform.instance = fakePlatform;
 
     expect(
       await plugin.transcribe(audioPath: '/audio/sample.wav'),
-      'stub:auto:bundled-tiny:/audio/sample.wav',
+      'stub:auto:bundled-default:/audio/sample.wav',
     );
   });
 
-  test('getBundledTinyModelPath delegates to platform interface', () async {
+  test('getBundledModelPath delegates to platform interface', () async {
     final plugin = WhispercppFlutter();
     final fakePlatform = MockWhispercppFlutterPlatform();
     WhispercppFlutterPlatform.instance = fakePlatform;
 
     expect(
-      await plugin.getBundledTinyModelPath(),
-      '/models/bundled/ggml-tiny.bin',
+      await plugin.getBundledModelPath(),
+      '/models/bundled/ggml-medium-q5_0.bin',
+    );
+    expect(
+      await plugin.getBundledModelPath(modelFileName: 'custom.bin'),
+      '/models/bundled/custom.bin',
     );
   });
 }

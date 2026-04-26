@@ -2,13 +2,14 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'method_channel.dart';
 
+const String bundeledWhisperModelName = 'ggml-medium-q5_0.bin';
+
 abstract class WhispercppFlutterPlatform extends PlatformInterface {
   WhispercppFlutterPlatform() : super(token: _token);
 
   static final Object _token = Object();
 
-  static WhispercppFlutterPlatform _instance =
-      MethodChannelWhispercppFlutter();
+  static WhispercppFlutterPlatform _instance = MethodChannelWhispercppFlutter();
 
   static WhispercppFlutterPlatform get instance => _instance;
 
@@ -40,9 +41,11 @@ abstract class WhispercppFlutterPlatform extends PlatformInterface {
     throw UnimplementedError('transcribe() has not been implemented.');
   }
 
-  Future<String?> getBundledTinyModelPath() {
+  Future<String?> getBundledModelPath({
+    String modelFileName = bundeledWhisperModelName,
+  }) {
     throw UnimplementedError(
-      'getBundledTinyModelPath() has not been implemented.',
+      'getBundledModelPath() has not been implemented.',
     );
   }
 }

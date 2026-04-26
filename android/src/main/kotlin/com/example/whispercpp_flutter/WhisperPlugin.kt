@@ -1,346 +1,350 @@
 package com.example.whispercpp_flutter
 
-import android.content.res.AssetFileDescriptor
+import android.content.Context
+import android.media.AudioFormat
+import android.media.AudioRecord
+import android.media.MediaRecorder
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
-import io.flutter.plugin.common.MethodChannel.MethodCallHandler
-import io.flutter.plugin.common.MethodChannel.Result
-import java.io.BufferedInputStream
 import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.util.Locale
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import java.io.RandomAccessFile
+import java.nio.ByteBuffer
+import java.nio.ByteOrder
+import java.util.concurrent.Executors
 
-class WhisperPlugin : FlutterPlugin, MethodCallHandler {
-    private val bundledTinyAssetPath = "models/ggml-tiny.bin"
-    private val englishOnlyModelPattern = Regex("""\.en(\.|$)""")
+class WhisperPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
+  private lateinit var channel: MethodChannel
+  private var applicationContext: Context? = null
+  private val executor = Executors.newSingleThreadExecutor()
 
-    companion object {
-        init {
-            System.loadLibrary("whispercpp_flutter")
+  private var audioRecord: AudioRecord? = null
+  private var recordThread: Thread? = null
+
+  @Volatile
+  private var recordingActive = false
+
+  private var recordingRaf: RandomAccessFile? = null
+  private var recordingFile: File? = null
+
+  companion object {
+    const val SAMPLE_RATE = 16000
+    const val CHANNELS = 1
+    const val BITS_PER_SAMPLE = 16
+    const val WAV_HEADER_BYTES = 44
+    const val DEFAULT_MODEL_FILE = "ggml-medium-q5_0.bin"
+
+    init {
+      System.loadLibrary("whispercpp_flutter")
+    }
+  }
+
+  private external fun transcribeNative(
+    modelPath: String,
+    audioPath: String,
+    language: String,
+  ): String
+
+  override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
+    applicationContext = binding.applicationContext
+    channel = MethodChannel(binding.binaryMessenger, "whispercpp_flutter")
+    channel.setMethodCallHandler(this)
+  }
+
+  override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
+    channel.setMethodCallHandler(null)
+    applicationContext = null
+    executor.shutdownNow()
+    synchronized(this) {
+      recordingActive = false
+      try {
+        recordThread?.interrupt()
+        recordThread?.join(2000)
+      } catch (_: InterruptedException) {
+      }
+      recordThread = null
+      try {
+        audioRecord?.stop()
+        audioRecord?.release()
+      } catch (_: Exception) {
+      }
+      audioRecord = null
+      try {
+        recordingRaf?.close()
+      } catch (_: Exception) {
+      }
+      recordingRaf = null
+      recordingFile = null
+    }
+  }
+
+  override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+    when (call.method) {
+      "getBundledModelPath" -> handleGetBundledModelPath(call, result)
+      "startRecording" -> handleStartRecording(result)
+      "stopRecording" -> {
+        executor.execute {
+          try {
+            val path = stopRecordingSync()
+            if (path == null) {
+              result.error("NOT_RECORDING", "No active recording.", null)
+            } else {
+              result.success(path)
+            }
+          } catch (e: Exception) {
+            result.error("STOP_FAILED", e.message, null)
+          }
         }
-    }
-
-    private lateinit var flutterPluginBinding: FlutterPlugin.FlutterPluginBinding
-    private lateinit var channel: MethodChannel
-
-    private val transcribeJob = SupervisorJob()
-    private val pluginScope = CoroutineScope(transcribeJob + Dispatchers.Main.immediate)
-    private val recorder = RecorderController()
-
-    private external fun transcribeNative(
-        modelPath: String,
-        audioPath: String,
-        language: String,
-    ): String
-
-    override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-        flutterPluginBinding = binding
-        channel = MethodChannel(binding.binaryMessenger, "whispercpp_flutter")
-        channel.setMethodCallHandler(this)
-    }
-
-    override fun onMethodCall(call: MethodCall, result: Result) {
-        when (call.method) {
-            "startRecording" -> handleStartRecording(result)
-            "stopRecording" -> handleStopRecording(result)
-            "stopAndTranscribe" -> handleStopAndTranscribe(call, result)
-            "getBundledTinyModelPath" -> {
-                pluginScope.launch {
-                    try {
-                        val path = getBundledTinyModelPath()
-                        result.success(path)
-                    } catch (e: CancellationException) {
-                        throw e
-                    } catch (e: IOException) {
-                        result.error("bundled_model_unavailable", e.message, null)
-                    } catch (e: Throwable) {
-                        result.error(
-                            "bundled_model_unavailable",
-                            e.message ?: "Failed to prepare the bundled tiny model.",
-                            null,
-                        )
-                    }
+      }
+      "stopAndTranscribe" -> {
+        val ctx = applicationContext
+        if (ctx == null) {
+          result.error("NO_CONTEXT", "Plugin not attached.", null)
+          return
+        }
+        val modelPathArg = call.argument<String>("modelPath")
+        val language = call.argument<String>("language") ?: "auto"
+        executor.execute {
+          try {
+            val wavPath =
+              stopRecordingSync()
+                ?: run {
+                  result.error("NOT_RECORDING", "No active recording.", null)
+                  return@execute
                 }
+            val modelPath =
+              modelPathArg ?: ensureBundledModelCopied(ctx, DEFAULT_MODEL_FILE)
+            val text = transcribeNative(modelPath, wavPath, language)
+            result.success(text)
+          } catch (e: Exception) {
+            result.error("TRANSCRIBE_FAILED", e.message, null)
+          }
+        }
+      }
+      "transcribe" -> {
+        val ctx = applicationContext
+        if (ctx == null) {
+          result.error("NO_CONTEXT", "Plugin not attached.", null)
+          return
+        }
+        val modelPathArg = call.argument<String>("modelPath")
+        val audioPath =
+          call.argument<String>("audioPath")
+            ?: run {
+              result.error("BAD_ARGUMENT", "audioPath is required.", null)
+              return
             }
-            "transcribe" -> handleTranscribe(call, result)
-            else -> result.notImplemented()
+        val language = call.argument<String>("language") ?: "auto"
+        executor.execute {
+          try {
+            val modelPath =
+              modelPathArg ?: ensureBundledModelCopied(ctx, DEFAULT_MODEL_FILE)
+            val text = transcribeNative(modelPath, audioPath, language)
+            result.success(text)
+          } catch (e: Exception) {
+            result.error("TRANSCRIBE_FAILED", e.message, null)
+          }
         }
+      }
+      else -> result.notImplemented()
     }
+  }
 
-    private fun handleStartRecording(result: Result) {
-        pluginScope.launch {
-            val outputFile = createTempRecordingFile()
-            try {
-                recorder.startRecording(outputFile)
-                result.success(outputFile.absolutePath)
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: SecurityException) {
-                result.error("permission_denied", "Microphone permission was denied.", null)
-            } catch (e: IllegalStateException) {
-                result.error("recording_unavailable", e.message, null)
-            } catch (e: Throwable) {
-                result.error("recording_failed", e.message ?: "Failed to start recording.", null)
-            }
-        }
+  private fun handleGetBundledModelPath(call: MethodCall, result: MethodChannel.Result) {
+    val ctx = applicationContext
+    if (ctx == null) {
+      result.error("NO_CONTEXT", "Plugin not attached.", null)
+      return
     }
-
-    private fun handleStopRecording(result: Result) {
-        pluginScope.launch {
-            try {
-                val outputFile = recorder.stopRecording()
-                result.success(outputFile.absolutePath)
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: IllegalStateException) {
-                result.error("recording_not_started", e.message, null)
-            } catch (e: Throwable) {
-                result.error("recording_failed", e.message ?: "Failed to stop recording.", null)
-            }
-        }
+    try {
+      val name = call.argument<String>("modelFileName") ?: DEFAULT_MODEL_FILE
+      val path = ensureBundledModelCopied(ctx, name)
+      result.success(path)
+    } catch (e: Exception) {
+      result.error("MODEL_COPY_FAILED", e.message, null)
     }
+  }
 
-    private fun handleStopAndTranscribe(call: MethodCall, result: Result) {
-        val requestedModelPath = call.argument<String>("modelPath")
-        val language = normalizeLanguage(call.argument<String>("language"))
-
-        pluginScope.launch {
-            try {
-                val outputFile = recorder.stopRecording()
-                val text = transcribeResolvedAudio(
-                    requestedModelPath = requestedModelPath,
-                    audioPath = outputFile.absolutePath,
-                    language = language,
-                )
-                result.success(text)
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: IllegalStateException) {
-                result.error("recording_not_started", e.message, null)
-            } catch (e: IllegalArgumentException) {
-                result.error("transcription_failed", e.message, null)
-            } catch (e: Throwable) {
-                result.error(
-                    "native_error",
-                    e.message ?: "Failed to stop recording and transcribe.",
-                    null,
-                )
-            }
-        }
-    }
-
-    private fun handleTranscribe(call: MethodCall, result: Result) {
-        val requestedModelPath = call.argument<String>("modelPath")
-        val audioPath = call.argument<String>("audioPath")
-        val language = normalizeLanguage(call.argument<String>("language"))
-
-        if (audioPath.isNullOrBlank()) {
-            result.error("invalid_args", "audioPath is required.", null)
-            return
-        }
-
-        // Resolve bundled model and run inference off the main thread; complete Result on the main thread.
-        pluginScope.launch {
-            val modelPath = try {
-                resolveModelPath(requestedModelPath)
-            } catch (e: CancellationException) {
-                throw e
-            } catch (error: Throwable) {
-                result.error(
-                    "bundled_model_unavailable",
-                    error.message ?: "Failed to prepare the bundled tiny model.",
-                    null,
-                )
-                return@launch
-            }
-
-            try {
-                val text = transcribeResolvedAudio(
-                    requestedModelPath = modelPath,
-                    audioPath = audioPath,
-                    language = language,
-                )
-                result.success(text)
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: IllegalArgumentException) {
-                result.error("transcription_failed", e.message, null)
-            } catch (e: Throwable) {
-                result.error(
-                    "native_error",
-                    e.message ?: "Unknown native transcription error.",
-                    null,
-                )
-            }
-        }
-    }
-
-    private suspend fun transcribeResolvedAudio(
-        requestedModelPath: String?,
-        audioPath: String,
-        language: String,
-    ): String {
-        val modelPath = resolveModelPath(requestedModelPath)
-
-        require(isLanguageCompatibleWithModel(language, modelPath)) {
-            "Non-English transcription requires a multilingual Whisper model. " +
-                "Use a model like ggml-tiny.bin instead of an English-only .en model."
-        }
-
-        val modelFile = File(modelPath)
-        require(modelFile.exists() && modelFile.isFile) {
-            "Model file was not found at: $modelPath"
-        }
-
-        val audioFile = File(audioPath)
-        require(audioFile.exists() && audioFile.isFile) {
-            "Audio file was not found at: $audioPath"
-        }
-
-        return withContext(Dispatchers.Default) {
-            transcribeNative(modelPath, audioPath, language)
-        }
-    }
-
-    private fun normalizeLanguage(language: String?): String {
-        val normalized = language
-            ?.trim()
-            ?.lowercase(Locale.ROOT)
-            ?.replace('_', '-')
-            .orEmpty()
-
-        return if (normalized.isEmpty()) "auto" else normalized
-    }
-
-    private fun isLanguageCompatibleWithModel(language: String, modelPath: String): Boolean {
-        if (language == "auto" || language == "en") {
-            return true
-        }
-
-        return !englishOnlyModelPattern.containsMatchIn(modelPath.lowercase(Locale.ROOT))
-    }
-
-    private suspend fun resolveModelPath(requestedModelPath: String?): String {
-        return if (requestedModelPath.isNullOrBlank()) {
-            getBundledTinyModelPath()
-        } else {
-            requestedModelPath
-        }
-    }
-
-    /**
-     * Installs the bundled model into [filesDir] with an atomic final rename. A [markerFile] records
-     * the last successful size so a truncated or interrupted copy cannot be mistaken for a valid model.
-     * Asset unpacking and file I/O run on [Dispatchers.IO].
-     */
-    @Throws(IOException::class)
-    private suspend fun getBundledTinyModelPath(): String = withContext(Dispatchers.IO) {
-        val context = flutterPluginBinding.applicationContext
-        val modelsDir = File(context.filesDir, "whispercpp_flutter/models")
-        if (!modelsDir.exists() && !modelsDir.mkdirs()) {
-            throw IOException("Failed to create models directory.")
-        }
-        val outputFile = File(modelsDir, "ggml-tiny.bin")
-        val markerFile = File(modelsDir, "ggml-tiny.bin.length")
-
-        val expectedLength = try {
-            context.assets.openFd(bundledTinyAssetPath).use { fd: AssetFileDescriptor ->
-                val len = fd.length
-                if (len == AssetFileDescriptor.UNKNOWN_LENGTH) {
-                    -1L
-                } else {
-                    len
-                }
-            }
-        } catch (_: IOException) {
-            -1L
-        }
-
-        if (isBundledModelUsable(outputFile, markerFile, expectedLength)) {
-            return@withContext outputFile.absolutePath
-        }
-
-        if (outputFile.exists() && !outputFile.delete()) {
-            throw IOException("Failed to remove an incomplete or stale model file. Clear app data and retry.")
-        }
-        if (markerFile.exists() && !markerFile.delete()) {
-            throw IOException("Failed to remove stale model metadata. Clear app data and retry.")
-        }
-
-        val temp = File.createTempFile("ggml-tiny", ".part", modelsDir)
-        try {
-            BufferedInputStream(context.assets.open(bundledTinyAssetPath)).use { input ->
-                FileOutputStream(temp).use { output ->
-                    val written = input.copyTo(output)
-                    if (expectedLength > 0L && written != expectedLength) {
-                        throw IOException(
-                            "Bundled model size mismatch (expected $expectedLength bytes, copied $written).",
-                        )
-                    }
-                    if (output.fd.valid()) {
-                        output.fd.sync()
-                    }
-                }
-            }
-            if (expectedLength > 0L && temp.length() != expectedLength) {
-                throw IOException("Bundled model file is incomplete on disk after extraction.")
-            }
-            if (!temp.renameTo(outputFile)) {
-                throw IOException("Failed to finalize the bundled model file after extraction.")
-            }
-            // Marker written only after the model file is fully installed, so a partial copy cannot look valid.
-            markerFile.writeText(outputFile.length().toString())
-        } finally {
-            if (temp.exists() && !temp.delete()) {
-                // Best-effort: leave no stray temp; ignore failure
-            }
-        }
-        return@withContext outputFile.absolutePath
-    }
-
-    private fun isBundledModelUsable(
-        output: File,
-        marker: File,
-        expectedFromAsset: Long,
-    ): Boolean {
-        if (!output.isFile || !marker.isFile) {
-            return false
-        }
-        val sizeFromMarker = try {
-            marker.readText().trim().toLong()
-        } catch (_: NumberFormatException) {
-            return false
-        }
-        if (sizeFromMarker != output.length()) {
-            return false
-        }
-        if (expectedFromAsset > 0L) {
-            return output.length() == expectedFromAsset
-        }
-        return true
-    }
-
-    private fun createTempRecordingFile(): File {
-        val recordingsDir = File(
-            flutterPluginBinding.applicationContext.cacheDir,
-            "whispercpp_flutter/recordings",
+  private fun handleStartRecording(result: MethodChannel.Result) {
+    synchronized(this) {
+      val ctx = applicationContext
+      if (ctx == null) {
+        result.error("NO_CONTEXT", "Plugin not attached.", null)
+        return
+      }
+      if (audioRecord != null) {
+        result.error("ALREADY_RECORDING", "Recording already in progress.", null)
+        return
+      }
+      val bufferSize =
+        AudioRecord.getMinBufferSize(
+          SAMPLE_RATE,
+          AudioFormat.CHANNEL_IN_MONO,
+          AudioFormat.ENCODING_PCM_16BIT,
         )
-        if (!recordingsDir.exists()) {
-            recordingsDir.mkdirs()
+      if (bufferSize == AudioRecord.ERROR || bufferSize == AudioRecord.ERROR_BAD_VALUE) {
+        result.error("AUDIO_INIT_FAILED", "getMinBufferSize failed.", null)
+        return
+      }
+      val file = File(ctx.cacheDir, "whisper_${System.currentTimeMillis()}.wav")
+      recordingFile = file
+      val raf =
+        try {
+          RandomAccessFile(file, "rw")
+        } catch (e: Exception) {
+          recordingFile = null
+          result.error("IO_ERROR", e.message, null)
+          return
         }
-        return File(recordingsDir, "recording-${System.currentTimeMillis()}.wav")
+      recordingRaf = raf
+      try {
+        raf.setLength(0)
+        raf.write(ByteArray(WAV_HEADER_BYTES))
+      } catch (e: Exception) {
+        try {
+          raf.close()
+        } catch (_: Exception) {
+        }
+        recordingRaf = null
+        recordingFile = null
+        result.error("IO_ERROR", e.message, null)
+        return
+      }
+      val recorder =
+        AudioRecord(
+          MediaRecorder.AudioSource.MIC,
+          SAMPLE_RATE,
+          AudioFormat.CHANNEL_IN_MONO,
+          AudioFormat.ENCODING_PCM_16BIT,
+          bufferSize * 2,
+        )
+      if (recorder.state != AudioRecord.STATE_INITIALIZED) {
+        recorder.release()
+        try {
+          raf.close()
+        } catch (_: Exception) {
+        }
+        recordingRaf = null
+        recordingFile = null
+        result.error("AUDIO_INIT_FAILED", "AudioRecord not initialized.", null)
+        return
+      }
+      recordingActive = true
+      audioRecord = recorder
+      recorder.startRecording()
+      val captureBufferSize = maxOf(bufferSize / 2, 256)
+      recordThread =
+        Thread {
+          val shortBuf = ShortArray(captureBufferSize)
+          try {
+            while (recordingActive) {
+              val n = recorder.read(shortBuf, 0, shortBuf.size)
+              if (n > 0) {
+                val out = recordingRaf ?: break
+                for (i in 0 until n) {
+                  val s = shortBuf[i]
+                  out.write(s.toInt() and 0xFF)
+                  out.write((s.toInt() shr 8) and 0xFF)
+                }
+              }
+            }
+          } catch (_: Exception) {
+          }
+        }
+      recordThread!!.start()
+      result.success(file.absolutePath)
     }
+  }
 
-    override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-        channel.setMethodCallHandler(null)
-        transcribeJob.cancel()
+  private fun stopRecordingSync(): String? {
+    synchronized(this) {
+      if (audioRecord == null) {
+        return null
+      }
+      recordingActive = false
+      try {
+        recordThread?.join(8000)
+      } catch (_: InterruptedException) {
+      }
+      recordThread = null
+      try {
+        audioRecord?.stop()
+        audioRecord?.release()
+      } catch (_: Exception) {
+      }
+      audioRecord = null
+      val raf = recordingRaf
+      val file = recordingFile
+      recordingRaf = null
+      recordingFile = null
+      if (raf == null || file == null) {
+        return null
+      }
+      return try {
+        val pcmSize = (raf.length() - WAV_HEADER_BYTES).toInt()
+        if (pcmSize < 0) {
+          raf.close()
+          return null
+        }
+        writePcmWavHeader(raf, pcmSize, SAMPLE_RATE, CHANNELS, BITS_PER_SAMPLE)
+        raf.close()
+        file.absolutePath
+      } catch (_: Exception) {
+        try {
+          raf.close()
+        } catch (_: Exception) {
+        }
+        null
+      }
     }
+  }
+
+  private fun ensureBundledModelCopied(context: Context, modelFileName: String): String {
+    if (modelFileName.contains('/') || modelFileName.contains('\\')) {
+      throw IllegalArgumentException("modelFileName must be a file name, not a path.")
+    }
+    val baseName = File(modelFileName).name
+    if (baseName.isBlank() || baseName != modelFileName.trim()) {
+      throw IllegalArgumentException("Invalid modelFileName.")
+    }
+    val assetPath = "models/$baseName"
+    val outFile = File(context.filesDir, "models/$baseName")
+    outFile.parentFile?.mkdirs()
+    if (!outFile.exists() || outFile.length() == 0L) {
+      context.assets.open(assetPath).use { input ->
+        outFile.outputStream().use { output -> input.copyTo(output) }
+      }
+    }
+    return outFile.absolutePath
+  }
+
+  private fun writePcmWavHeader(
+    raf: RandomAccessFile,
+    pcmDataSize: Int,
+    sampleRate: Int,
+    channels: Int,
+    bitsPerSample: Int,
+  ) {
+    val byteRate = sampleRate * channels * bitsPerSample / 8
+    val blockAlign = channels * bitsPerSample / 8
+    val chunkSize = 36 + pcmDataSize
+    val buffer =
+      ByteBuffer.allocate(WAV_HEADER_BYTES).order(ByteOrder.LITTLE_ENDIAN).apply {
+        put("RIFF".toByteArray(Charsets.US_ASCII))
+        putInt(chunkSize)
+        put("WAVE".toByteArray(Charsets.US_ASCII))
+        put("fmt ".toByteArray(Charsets.US_ASCII))
+        putInt(16)
+        putShort(1)
+        putShort(channels.toShort())
+        putInt(sampleRate)
+        putInt(byteRate)
+        putShort(blockAlign.toShort())
+        putShort(bitsPerSample.toShort())
+        put("data".toByteArray(Charsets.US_ASCII))
+        putInt(pcmDataSize)
+      }
+    raf.seek(0)
+    raf.write(buffer.array())
+  }
 }
