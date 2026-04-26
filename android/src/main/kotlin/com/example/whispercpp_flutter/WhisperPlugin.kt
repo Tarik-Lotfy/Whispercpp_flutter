@@ -33,6 +33,7 @@ class WhisperPlugin : FlutterPlugin, MethodCallHandler {
 
     private val transcribeJob = SupervisorJob()
     private val pluginScope = CoroutineScope(transcribeJob + Dispatchers.Main.immediate)
+    private val recorder = RecorderController()
 
     private external fun transcribeNative(
         modelPath: String,
@@ -48,6 +49,9 @@ class WhisperPlugin : FlutterPlugin, MethodCallHandler {
 
     override fun onMethodCall(call: MethodCall, result: Result) {
         when (call.method) {
+            "startRecording" -> handleStartRecording(result)
+            "stopRecording" -> handleStopRecording(result)
+            "stopAndTranscribe" -> handleStopAndTranscribe(call, result)
             "getBundledTinyModelPath" -> {
                 pluginScope.launch {
                     try {
@@ -68,6 +72,68 @@ class WhisperPlugin : FlutterPlugin, MethodCallHandler {
             }
             "transcribe" -> handleTranscribe(call, result)
             else -> result.notImplemented()
+        }
+    }
+
+    private fun handleStartRecording(result: Result) {
+        pluginScope.launch {
+            val outputFile = createTempRecordingFile()
+            try {
+                recorder.startRecording(outputFile)
+                result.success(outputFile.absolutePath)
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: SecurityException) {
+                result.error("permission_denied", "Microphone permission was denied.", null)
+            } catch (e: IllegalStateException) {
+                result.error("recording_unavailable", e.message, null)
+            } catch (e: Throwable) {
+                result.error("recording_failed", e.message ?: "Failed to start recording.", null)
+            }
+        }
+    }
+
+    private fun handleStopRecording(result: Result) {
+        pluginScope.launch {
+            try {
+                val outputFile = recorder.stopRecording()
+                result.success(outputFile.absolutePath)
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: IllegalStateException) {
+                result.error("recording_not_started", e.message, null)
+            } catch (e: Throwable) {
+                result.error("recording_failed", e.message ?: "Failed to stop recording.", null)
+            }
+        }
+    }
+
+    private fun handleStopAndTranscribe(call: MethodCall, result: Result) {
+        val requestedModelPath = call.argument<String>("modelPath")
+        val language = normalizeLanguage(call.argument<String>("language"))
+
+        pluginScope.launch {
+            try {
+                val outputFile = recorder.stopRecording()
+                val text = transcribeResolvedAudio(
+                    requestedModelPath = requestedModelPath,
+                    audioPath = outputFile.absolutePath,
+                    language = language,
+                )
+                result.success(text)
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: IllegalStateException) {
+                result.error("recording_not_started", e.message, null)
+            } catch (e: IllegalArgumentException) {
+                result.error("transcription_failed", e.message, null)
+            } catch (e: Throwable) {
+                result.error(
+                    "native_error",
+                    e.message ?: "Failed to stop recording and transcribe.",
+                    null,
+                )
+            }
         }
     }
 
@@ -96,32 +162,12 @@ class WhisperPlugin : FlutterPlugin, MethodCallHandler {
                 return@launch
             }
 
-            if (!isLanguageCompatibleWithModel(language, modelPath)) {
-                result.error(
-                    "unsupported_model",
-                    "Non-English transcription requires a multilingual Whisper model. " +
-                        "Use a model like ggml-tiny.bin instead of an English-only .en model.",
-                    null,
-                )
-                return@launch
-            }
-
-            val modelFile = File(modelPath)
-            if (!modelFile.exists() || !modelFile.isFile) {
-                result.error("model_not_found", "Model file was not found at: $modelPath", null)
-                return@launch
-            }
-
-            val audioFile = File(audioPath)
-            if (!audioFile.exists() || !audioFile.isFile) {
-                result.error("audio_not_found", "Audio file was not found at: $audioPath", null)
-                return@launch
-            }
-
             try {
-                val text = withContext(Dispatchers.Default) {
-                    transcribeNative(modelPath, audioPath, language)
-                }
+                val text = transcribeResolvedAudio(
+                    requestedModelPath = modelPath,
+                    audioPath = audioPath,
+                    language = language,
+                )
                 result.success(text)
             } catch (e: CancellationException) {
                 throw e
@@ -134,6 +180,33 @@ class WhisperPlugin : FlutterPlugin, MethodCallHandler {
                     null,
                 )
             }
+        }
+    }
+
+    private suspend fun transcribeResolvedAudio(
+        requestedModelPath: String?,
+        audioPath: String,
+        language: String,
+    ): String {
+        val modelPath = resolveModelPath(requestedModelPath)
+
+        require(isLanguageCompatibleWithModel(language, modelPath)) {
+            "Non-English transcription requires a multilingual Whisper model. " +
+                "Use a model like ggml-tiny.bin instead of an English-only .en model."
+        }
+
+        val modelFile = File(modelPath)
+        require(modelFile.exists() && modelFile.isFile) {
+            "Model file was not found at: $modelPath"
+        }
+
+        val audioFile = File(audioPath)
+        require(audioFile.exists() && audioFile.isFile) {
+            "Audio file was not found at: $audioPath"
+        }
+
+        return withContext(Dispatchers.Default) {
+            transcribeNative(modelPath, audioPath, language)
         }
     }
 
@@ -253,6 +326,17 @@ class WhisperPlugin : FlutterPlugin, MethodCallHandler {
             return output.length() == expectedFromAsset
         }
         return true
+    }
+
+    private fun createTempRecordingFile(): File {
+        val recordingsDir = File(
+            flutterPluginBinding.applicationContext.cacheDir,
+            "whispercpp_flutter/recordings",
+        )
+        if (!recordingsDir.exists()) {
+            recordingsDir.mkdirs()
+        }
+        return File(recordingsDir, "recording-${System.currentTimeMillis()}.wav")
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {

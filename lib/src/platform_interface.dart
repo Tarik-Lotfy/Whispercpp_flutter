@@ -17,6 +17,21 @@ abstract class WhispercppFlutterPlatform extends PlatformInterface {
     _instance = instance;
   }
 
+  Future<String?> startRecording() {
+    throw UnimplementedError('startRecording() has not been implemented.');
+  }
+
+  Future<String?> stopRecording() {
+    throw UnimplementedError('stopRecording() has not been implemented.');
+  }
+
+  Future<String?> stopAndTranscribe({
+    String? modelPath,
+    String language = 'auto',
+  }) {
+    throw UnimplementedError('stopAndTranscribe() has not been implemented.');
+  }
+
   Future<String?> transcribe({
     String? modelPath,
     required String audioPath,
