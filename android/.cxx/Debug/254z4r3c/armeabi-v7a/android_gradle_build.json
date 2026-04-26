@@ -1,0 +1,71 @@
+{
+  "buildFiles": [
+    "D:\\Projects\\New project\\android\\src\\main\\cpp\\CMakeLists.txt",
+    "D:\\Projects\\whisper.cpp\\CMakeLists.txt",
+    "D:\\Projects\\whisper.cpp\\ggml\\CMakeLists.txt",
+    "D:\\Projects\\whisper.cpp\\ggml\\src\\CMakeLists.txt",
+    "D:\\Projects\\whisper.cpp\\ggml\\src\\ggml-cpu\\CMakeLists.txt",
+    "D:\\Projects\\whisper.cpp\\src\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "D:\\androidstudio\\cmake\\3.22.1\\bin\\ninja.exe",
+      "-C",
+      "D:\\Projects\\New project\\android\\.cxx\\Debug\\254z4r3c\\armeabi-v7a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "D:\\androidstudio\\cmake\\3.22.1\\bin\\ninja.exe",
+    "-C",
+    "D:\\Projects\\New project\\android\\.cxx\\Debug\\254z4r3c\\armeabi-v7a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "ggml::@e7cab26b719f2df2e879": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "ggml",
+      "output": "D:\\Projects\\New project\\android\\.cxx\\Debug\\254z4r3c\\armeabi-v7a\\whispercpp\\ggml\\src\\libggml.a"
+    },
+    "ggml-base::@e7cab26b719f2df2e879": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "ggml-base",
+      "output": "D:\\Projects\\New project\\android\\.cxx\\Debug\\254z4r3c\\armeabi-v7a\\whispercpp\\ggml\\src\\libggml-base.a"
+    },
+    "ggml-cpu::@e7cab26b719f2df2e879": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "ggml-cpu",
+      "output": "D:\\Projects\\New project\\android\\.cxx\\Debug\\254z4r3c\\armeabi-v7a\\whispercpp\\ggml\\src\\libggml-cpu.a"
+    },
+    "whisper::@cfdb74af8c80f0045dd9": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "whisper",
+      "output": "D:\\Projects\\New project\\android\\.cxx\\Debug\\254z4r3c\\armeabi-v7a\\whispercpp\\src\\libwhisper.a"
+    },
+    "whispercpp_flutter::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "armeabi-v7a",
+      "artifactName": "whispercpp_flutter",
+      "output": "D:\\Projects\\whisperex\\build\\whispercpp_flutter\\intermediates\\cxx\\Debug\\254z4r3c\\obj\\armeabi-v7a\\libwhispercpp_flutter.so",
+      "runtimeFiles": [
+        "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64\\lib\\clang\\18\\lib\\linux\\arm\\libomp.so"
+      ]
+    }
+  },
+  "toolchains": {
+    "toolchain": {
+      "cCompilerExecutable": "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe",
+      "cppCompilerExecutable": "D:\\androidstudio\\ndk\\27.0.12077973\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe"
+    }
+  },
+  "cFileExtensions": [
+    "c"
+  ],
+  "cppFileExtensions": [
+    "cpp"
+  ]
+}

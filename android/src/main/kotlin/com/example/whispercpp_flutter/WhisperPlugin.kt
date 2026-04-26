@@ -1,4 +1,4 @@
-package com.example.whispercpp_flutter
+﻿package com.example.whispercpp_flutter
 
 import android.content.Context
 import android.media.AudioFormat
