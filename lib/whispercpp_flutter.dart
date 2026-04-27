@@ -1,5 +1,13 @@
 import 'src/platform_interface.dart';
 
+export 'src/download_model.dart'
+    show
+        WhisperModelDownloadException,
+        DownloadProgressCallback,
+        downloadModel,
+        whisperDownloadHost;
+export 'src/whisper_model.dart' show WhisperModel;
+
 abstract final class WhisperLanguages {
   static const String auto = 'auto';
   static const String arabic = 'ar';
@@ -11,12 +19,9 @@ class WhispercppFlutter {
     return WhispercppFlutterPlatform.instance.startRecording();
   }
 
-  Future<String?> stopRecording() {
-    return WhispercppFlutterPlatform.instance.stopRecording();
-  }
-
+  /// Stops active recording and transcribes that WAV in one step (native).
   Future<String?> stopAndTranscribe({
-    String? modelPath,
+    required String modelPath,
     String language = WhisperLanguages.auto,
   }) {
     return WhispercppFlutterPlatform.instance.stopAndTranscribe(
@@ -25,23 +30,16 @@ class WhispercppFlutter {
     );
   }
 
-  Future<String?> transcribe({
-    String? modelPath,
+  /// Run Whisper on an arbitrary WAV path (e.g. imported file — not the mic capture helper above).
+  Future<String?> transcribeFile({
+    required String modelPath,
     required String audioPath,
     String language = WhisperLanguages.auto,
   }) {
-    return WhispercppFlutterPlatform.instance.transcribe(
+    return WhispercppFlutterPlatform.instance.transcribeFile(
       modelPath: modelPath,
       audioPath: audioPath,
       language: language,
-    );
-  }
-
-  Future<String?> getBundledModelPath({
-    String modelFileName = bundeledWhisperModelName,
-  }) {
-    return WhispercppFlutterPlatform.instance.getBundledModelPath(
-      modelFileName: modelFileName,
     );
   }
 }

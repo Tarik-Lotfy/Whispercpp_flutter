@@ -1,17 +1,17 @@
 # whispercpp_flutter
 
-A Flutter plugin for on-device speech recognition with Android microphone capture
-and Whisper-powered transcription.
+A Flutter plugin for on-device speech recognition with microphone capture (Android)
+and Whisper-powered transcription via embedded [whisper.cpp](https://github.com/ggml-org/whisper.cpp).
 
-The current transcription API is set up for multilingual testing, including Arabic,
-and the Android plugin bundles `ggml-medium-q5_0.bin` as its built-in model.
+GGML models are **not** bundled with the plugin.
+Download a model at runtime with [`downloadModel`](lib/src/download_model.dart) (see [`WhisperModel`](lib/src/whisper_model.dart)), then pass **`modelPath`** into [`stopAndTranscribe`](lib/whispercpp_flutter.dart) (mic capture) or [`transcribeFile`](lib/whispercpp_flutter.dart) (existing WAV).
 
 ## Structure
 
-- `lib/` exposes the public Dart API.
+- `lib/` exposes the public Dart API (`WhispercppFlutter`, `downloadModel`, `WhisperModel`).
 - `android/` contains the Kotlin platform implementation.
-- `ios/` contains the Swift platform implementation.
-- `android/src/main/cpp/third_party/whisper.cpp` is a **Git submodule** with upstream [whisper.cpp](https://github.com/ggml-org/whisper.cpp) (the native inference engine CMake links into the plugin).
+- `ios/` contains a minimal Swift stub (transcription not wired on iOS in this repo yet).
+- `android/src/main/cpp/third_party/whisper.cpp` is a **Git submodule** with upstream whisper.cpp (NDK links it into the plugin).
 
 ## Clone / collaborators
 
@@ -29,43 +29,62 @@ git clone --recurse-submodules <repository-url>
 
 ## Channel
 
-This plugin uses the method channel:
+Method channel name: `whispercpp_flutter`
 
-`whispercpp_flutter`
+Implemented methods:
 
-Currently implemented methods:
-
-- `startRecording`
-- `stopRecording`
-- `stopAndTranscribe`
-- `transcribe`
-- `getBundledModelPath` (optional `modelFileName`, default `ggml-medium-q5_0.bin`)
+- `startRecording` — begin microphone capture to a WAV path.
+- **`stopAndTranscribe`** — stops capture **and** runs Whisper on that WAV (single native hop). There is no separate stop-without-transcribe API.
+- **`transcribeFile`** — Whisper on an arbitrary WAV path (**`modelPath`** + **`audioPath`**).
 
 ## Usage
+
+Mic workflow (preferred):
 
 ```dart
 import 'package:whispercpp_flutter/whispercpp_flutter.dart';
 
-final controller = WhispercppFlutter();
-await controller.startRecording();
+final whisper = WhispercppFlutter();
 
-final arabicText = await controller.stopAndTranscribe(
-  language: 'ar',
+final modelPath = await downloadModel(
+  model: WhisperModel.mediumQ5,
 );
 
-final bundledModelPath = await controller.getBundledModelPath();
+await whisper.startRecording();
+final text = await whisper.stopAndTranscribe(
+  modelPath: modelPath,
+  language: 'ar',
+);
 ```
+
+Existing file on disk:
+
+```dart
+final text = await whisper.transcribeFile(
+  modelPath: modelPath,
+  audioPath: '/path/to/file.wav',
+);
+```
+
+Optional mirror / custom host (no trailing slash):
+
+```dart
+await downloadModel(
+  model: WhisperModel.mediumQ5,
+  downloadHost: 'https://hf-mirror.com/ggerganov/whisper.cpp/resolve/main',
+);
+```
+
+Default download location when `destinationDir` is omitted: application support directory + `whisper_models/` (via `path_provider`).
 
 ## Notes
 
-- Android microphone capture records mono 16 kHz WAV files internally.
-- The app still needs runtime microphone permission before `startRecording()`.
-- The Android plugin ships multilingual `ggml-medium-q5_0.bin` under `assets/models/`.
-- You can still call `transcribe(audioPath: ...)` directly for debugging.
-- To use a different bundled file, pass `modelFileName` to `getBundledModelPath` and the same path into `transcribe` / `stopAndTranscribe`.
+- Android records mono 16 kHz WAV files internally.
+- Apps need **microphone** permission before `startRecording()`.
+- Models come from Hugging Face (default `https://huggingface.co/ggerganov/whisper.cpp/resolve/main`). Ensure filenames match [`WhisperModel`](lib/src/whisper_model.dart) or pass a compatible URL stem when hosting your own mirror.
+- Do not use English-only models such as `ggml-tiny.en.bin` for Arabic; pass `language: 'ar'` for Arabic.
 
 ## Arabic testing
 
-- You can still pass a custom multilingual model path if you want.
-- Do not use English-only models such as `ggml-tiny.en.bin` for Arabic.
-- Pass `language: 'ar'` to `stopAndTranscribe(...)` or `transcribe(...)`.
+- Use a multilingual variant (e.g. `WhisperModel.smallQ5` or `WhisperModel.smallQ8`).
+- Pass `language: 'ar'` to `stopAndTranscribe` / `transcribeFile`.
