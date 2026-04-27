@@ -10,30 +10,21 @@ class MockWhispercppFlutterPlatform
   Future<String?> startRecording() async => '/tmp/recording.wav';
 
   @override
-  Future<String?> stopRecording() async => '/tmp/recording.wav';
-
-  @override
   Future<String?> stopAndTranscribe({
-    String? modelPath,
+    required String modelPath,
     String language = 'auto',
   }) async {
-    return 'stop:$language:${modelPath ?? 'bundled-default'}:/tmp/recording.wav';
+    return 'stop-and-transcribe:$language:$modelPath';
   }
 
   @override
-  Future<String?> transcribe({
-    String? modelPath,
+  Future<String?> transcribeFile({
+    required String modelPath,
     required String audioPath,
     String language = 'auto',
   }) async {
-    return 'stub:$language:${modelPath ?? 'bundled-default'}:$audioPath';
+    return 'file:$language:$modelPath:$audioPath';
   }
-
-  @override
-  Future<String?> getBundledModelPath({
-    String modelFileName = bundeledWhisperModelName,
-  }) async =>
-      '/models/bundled/$modelFileName';
 }
 
 void main() {
@@ -43,14 +34,6 @@ void main() {
     WhispercppFlutterPlatform.instance = fakePlatform;
 
     expect(await plugin.startRecording(), '/tmp/recording.wav');
-  });
-
-  test('stopRecording delegates to platform interface', () async {
-    final plugin = WhispercppFlutter();
-    final fakePlatform = MockWhispercppFlutterPlatform();
-    WhispercppFlutterPlatform.instance = fakePlatform;
-
-    expect(await plugin.stopRecording(), '/tmp/recording.wav');
   });
 
   test('stopAndTranscribe delegates to platform interface', () async {
@@ -63,49 +46,30 @@ void main() {
         modelPath: '/models/ggml-medium-q5_0.bin',
         language: 'ar',
       ),
-      'stop:ar:/models/ggml-medium-q5_0.bin:/tmp/recording.wav',
+      'stop-and-transcribe:ar:/models/ggml-medium-q5_0.bin',
     );
   });
 
-  test('transcribe delegates to platform interface', () async {
+  test('transcribeFile delegates to platform interface', () async {
     final plugin = WhispercppFlutter();
     final fakePlatform = MockWhispercppFlutterPlatform();
     WhispercppFlutterPlatform.instance = fakePlatform;
 
     expect(
-      await plugin.transcribe(
+      await plugin.transcribeFile(
         modelPath: '/models/ggml-medium-q5_0.bin',
         audioPath: '/audio/sample.wav',
         language: 'ar',
       ),
-      'stub:ar:/models/ggml-medium-q5_0.bin:/audio/sample.wav',
+      'file:ar:/models/ggml-medium-q5_0.bin:/audio/sample.wav',
     );
   });
 
-  test('transcribe uses the bundled default model when modelPath is null',
-      () async {
-    final plugin = WhispercppFlutter();
-    final fakePlatform = MockWhispercppFlutterPlatform();
-    WhispercppFlutterPlatform.instance = fakePlatform;
-
+  test('WhisperModel maps to HF ggml filename', () {
+    expect(WhisperModel.mediumQ5.fileName, 'ggml-medium-q5_0.bin');
+    expect(WhisperModel.tinyQ8.fileName, 'ggml-tiny-q8_0.bin');
+    expect(WhisperModel.baseQ5.fileName, 'ggml-base-q5_1.bin');
     expect(
-      await plugin.transcribe(audioPath: '/audio/sample.wav'),
-      'stub:auto:bundled-default:/audio/sample.wav',
-    );
-  });
-
-  test('getBundledModelPath delegates to platform interface', () async {
-    final plugin = WhispercppFlutter();
-    final fakePlatform = MockWhispercppFlutterPlatform();
-    WhispercppFlutterPlatform.instance = fakePlatform;
-
-    expect(
-      await plugin.getBundledModelPath(),
-      '/models/bundled/ggml-medium-q5_0.bin',
-    );
-    expect(
-      await plugin.getBundledModelPath(modelFileName: 'custom.bin'),
-      '/models/bundled/custom.bin',
-    );
+        WhisperModel.largeV3TurboQ5.fileName, 'ggml-large-v3-turbo-q5_0.bin');
   });
 }

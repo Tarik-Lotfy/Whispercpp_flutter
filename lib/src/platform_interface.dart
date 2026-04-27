@@ -2,8 +2,6 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'method_channel.dart';
 
-const String bundeledWhisperModelName = 'ggml-medium-q5_0.bin';
-
 abstract class WhispercppFlutterPlatform extends PlatformInterface {
   WhispercppFlutterPlatform() : super(token: _token);
 
@@ -22,30 +20,20 @@ abstract class WhispercppFlutterPlatform extends PlatformInterface {
     throw UnimplementedError('startRecording() has not been implemented.');
   }
 
-  Future<String?> stopRecording() {
-    throw UnimplementedError('stopRecording() has not been implemented.');
-  }
-
+  /// Stops active recording and runs Whisper on the captured WAV (one native hop).
   Future<String?> stopAndTranscribe({
-    String? modelPath,
+    required String modelPath,
     String language = 'auto',
   }) {
     throw UnimplementedError('stopAndTranscribe() has not been implemented.');
   }
 
-  Future<String?> transcribe({
-    String? modelPath,
+  /// Transcribe an existing WAV on disk (was not captured by this plugin session).
+  Future<String?> transcribeFile({
+    required String modelPath,
     required String audioPath,
     String language = 'auto',
   }) {
-    throw UnimplementedError('transcribe() has not been implemented.');
-  }
-
-  Future<String?> getBundledModelPath({
-    String modelFileName = bundeledWhisperModelName,
-  }) {
-    throw UnimplementedError(
-      'getBundledModelPath() has not been implemented.',
-    );
+    throw UnimplementedError('transcribeFile() has not been implemented.');
   }
 }
