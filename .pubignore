@@ -1,0 +1,9 @@
+# whisper.cpp submodule: omit paths not used by Android CMake (WHISPER_BUILD_EXAMPLES OFF).
+# Pub warns when tracked files match submodule `.gitignore`; listing them here excludes them from
+# the published tarball explicitly. See dart.dev/go/pubignore
+
+android/src/main/cpp/third_party/whisper.cpp/examples/
+
+android/src/main/cpp/third_party/whisper.cpp/bindings/java/.idea/
+
+android/src/main/cpp/third_party/whisper.cpp/models/for-tests-*.bin

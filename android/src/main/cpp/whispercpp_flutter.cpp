@@ -185,7 +185,11 @@ std::string RunWhisperInference(const std::string& model_path,
     params.no_context = true;
     params.single_segment = false;
     params.no_timestamps = true;
-    params.n_threads = std::max(1u, std::min(4u, std::thread::hardware_concurrency()));
+    {
+      unsigned hc = std::thread::hardware_concurrency();
+      if (hc == 0) hc = 4;
+      params.n_threads = static_cast<int>(std::min(hc, 8u));
+    }
 
     if (language.empty() || language == "auto") {
       params.language = nullptr;

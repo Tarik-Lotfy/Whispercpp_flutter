@@ -13,13 +13,8 @@ class MethodChannelWhispercppFlutter extends WhispercppFlutterPlatform {
   }
 
   @override
-  Future<String?> stopRecording() {
-    return methodChannel.invokeMethod<String>('stopRecording');
-  }
-
-  @override
   Future<String?> stopAndTranscribe({
-    String? modelPath,
+    required String modelPath,
     String language = 'auto',
   }) {
     return methodChannel.invokeMethod<String>(
@@ -32,28 +27,18 @@ class MethodChannelWhispercppFlutter extends WhispercppFlutterPlatform {
   }
 
   @override
-  Future<String?> transcribe({
-    String? modelPath,
+  Future<String?> transcribeFile({
+    required String modelPath,
     required String audioPath,
     String language = 'auto',
   }) {
     return methodChannel.invokeMethod<String>(
-      'transcribe',
+      'transcribeFile',
       <String, Object?>{
         'modelPath': modelPath,
         'audioPath': audioPath,
         'language': language,
       },
-    );
-  }
-
-  @override
-  Future<String?> getBundledModelPath({
-    String modelFileName = bundeledWhisperModelName,
-  }) {
-    return methodChannel.invokeMethod<String>(
-      'getBundledModelPath',
-      <String, Object?>{'modelFileName': modelFileName},
     );
   }
 }
