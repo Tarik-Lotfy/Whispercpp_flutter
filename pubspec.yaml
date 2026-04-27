@@ -1,6 +1,6 @@
 name: whispercpp_flutter
 description: On-device, multilingual speech recognition for Flutter powered by Whisper.
-version: 0.1.0
+version: 0.1.1
 repository: https://github.com/Tarik-Lotfy/Whispercpp_flutter
 
 environment:

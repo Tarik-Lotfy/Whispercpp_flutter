@@ -6,26 +6,18 @@ and Whisper-powered transcription via embedded [whisper.cpp](https://github.com/
 GGML models are **not** bundled with the plugin.
 Download a model at runtime with [`downloadModel`](lib/src/download_model.dart) (see [`WhisperModel`](lib/src/whisper_model.dart)), then pass **`modelPath`** into [`stopAndTranscribe`](lib/whispercpp_flutter.dart) (mic capture) or [`transcribeFile`](lib/whispercpp_flutter.dart) (existing WAV).
 
+## Installation
+
+```bash
+flutter pub add whispercpp_flutter
+```
+
 ## Structure
 
 - `lib/` exposes the public Dart API (`WhispercppFlutter`, `downloadModel`, `WhisperModel`).
 - `android/` contains the Kotlin platform implementation.
 - `ios/` contains a minimal Swift stub (transcription not wired on iOS in this repo yet).
 - `android/src/main/cpp/third_party/whisper.cpp` is a **Git submodule** with upstream whisper.cpp (NDK links it into the plugin).
-
-## Clone / collaborators
-
-After cloning this repo, pull submodules so the Android NDK build can find whisper.cpp:
-
-```bash
-git submodule update --init --recursive
-```
-
-Or clone in one step:
-
-```bash
-git clone --recurse-submodules <repository-url>
-```
 
 ## Channel
 

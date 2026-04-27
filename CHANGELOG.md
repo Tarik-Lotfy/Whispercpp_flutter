@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1
+
+- Update `whispercpp_flutter` Flutter plugin.
+
 ## 0.1.0
 
 - **Breaking:** Removed **`stopRecording`** from the public API and Android channel; stopping the mic only happens inside **`stopAndTranscribe`**.
