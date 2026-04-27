@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -26,6 +27,12 @@ class WhisperModelDownloadException implements Exception {
   String toString() => 'WhisperModelDownloadException: $message';
 }
 
+/// Same minimum as post-download validation; existing files below this are treated as stale.
+const int _kMinModelBytes = 100 * 1024;
+
+final Map<String, Future<String>> _downloadsInFlight =
+    <String, Future<String>>{};
+
 /// Downloads `ggml-{model.modelName}.bin` into [destinationDir].
 ///
 /// When [destinationDir] is null, uses application support dir +
@@ -36,6 +43,9 @@ class WhisperModelDownloadException implements Exception {
 /// `{downloadHost}/ggml-{model.modelName}.bin`.
 ///
 /// Writes via a `.part` temp file and renames when complete.
+///
+/// Concurrent calls for the same destination file share one download; the
+/// response stream is piped with [IOSink.addStream] for backpressure.
 Future<String> downloadModel({
   required WhisperModel model,
   String? destinationDir,
@@ -55,11 +65,50 @@ Future<String> downloadModel({
   }
 
   final outFile = File(p.join(dirPath, model.fileName));
+  final key = p.normalize(outFile.path);
+
+  return _downloadsInFlight.putIfAbsent(key, () {
+    final future = _downloadModelOnce(
+      uri: uri,
+      outFile: outFile,
+      onProgress: onProgress,
+    );
+    future.whenComplete(() => _downloadsInFlight.remove(key));
+    return future;
+  });
+}
+
+Future<bool> _isPlausibleModelFile(File f) async {
+  try {
+    if (!await f.exists()) return false;
+    final len = await f.length();
+    return len >= _kMinModelBytes;
+  } catch (_) {
+    return false;
+  }
+}
+
+Future<void> _deleteIfExists(File f) async {
+  try {
+    if (await f.exists()) await f.delete();
+  } catch (e, st) {
+    debugPrint('downloadModel delete stale file: $e\n$st');
+  }
+}
+
+Future<String> _downloadModelOnce({
+  required Uri uri,
+  required File outFile,
+  DownloadProgressCallback? onProgress,
+}) async {
   final partFile = File('${outFile.path}.part');
 
-  if (await outFile.exists()) {
+  if (await _isPlausibleModelFile(outFile)) {
     return outFile.path;
   }
+
+  await _deleteIfExists(outFile);
+  await _deleteIfExists(partFile);
 
   final httpClient = HttpClient();
   try {
@@ -84,36 +133,35 @@ Future<String> downloadModel({
     }
 
     try {
-      await for (final chunk in response) {
-        received += chunk.length;
-        sink.add(chunk);
-        if (onProgress != null && total > 0) {
-          onProgress(
-            received / total,
-            received / (1024 * 1024),
-            total / (1024 * 1024),
-          );
-        }
-      }
-      await sink.flush();
+      await sink.addStream(
+        response.map((chunk) {
+          received += chunk.length;
+          if (onProgress != null && total > 0) {
+            onProgress(
+              received / total,
+              received / (1024 * 1024),
+              total / (1024 * 1024),
+            );
+          }
+          return chunk;
+        }),
+      );
       await sink.close();
     } catch (e) {
-      await sink.close();
-      if (await partFile.exists()) {
-        await partFile.delete();
-      }
+      await sink.close().catchError((_) {});
+      await _deleteIfExists(partFile);
       rethrow;
     }
 
     if (total > 0 && received != total) {
-      if (await partFile.exists()) await partFile.delete();
+      await _deleteIfExists(partFile);
       throw WhisperModelDownloadException(
         'Incomplete download: got $received bytes, expected $total',
       );
     }
 
-    if (received < 1024 * 100) {
-      if (await partFile.exists()) await partFile.delete();
+    if (received < _kMinModelBytes) {
+      await _deleteIfExists(partFile);
       throw WhisperModelDownloadException(
         'Download too small ($received bytes); likely not a model file.',
       );
